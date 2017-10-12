@@ -25,26 +25,45 @@ class Game {
         return currentTime > lastUpdate + LOOP_WAIT_IN_MILLISECONDS
     }
 
-    private static long getCurrentMilliseconds() {
-        new Date().getTime()
+    private void update() {
+        board.repaint(
+                setAndReturnProjectiles(
+                        decayProjectiles(
+                                updateProjectiles(
+                                        updatePlayer(
+                                                projectiles)))))
     }
 
-    private void update() {
+    private Projectile[] updatePlayer(Projectile[] projectiles) {
         player.move()
-        if (player.isAttacking()) {
+        if (player.isAttackKeyPressed()) {
+            player.decrementCooldown()
             if (player.canAttack()) {
                 player.resetCooldown()
-                projectiles = projectiles + player.getNewProjectile()
-            } else {
-                player.decrementCooldown()
+                return projectiles + player.getNewProjectile()
             }
         }
-        projectiles = projectiles.collect{
+
+        projectiles
+    }
+
+    private Projectile[] setAndReturnProjectiles(Projectile[] projectiles) {
+        this.projectiles = projectiles
+    }
+
+    private static Projectile[] updateProjectiles(Projectile[] projectiles) {
+        projectiles.collect{
             it.update()
         }
-        projectiles = projectiles.findAll{
+    }
+
+    private static Projectile[] decayProjectiles(Projectile[] projectiles) {
+        projectiles.findAll{
             it.getDecay() > 0
         }
-        board.repaint(projectiles)
+    }
+
+    private static long getCurrentMilliseconds() {
+        new Date().getTime()
     }
 }

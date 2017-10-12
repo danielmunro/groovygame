@@ -44,7 +44,7 @@ class PlayerSpec extends Specification {
         player.keyPressed(Constants.KEY_SPACE)
 
         then:
-        player.isAttacking()
+        player.isAttackKeyPressed()
     }
 
     def "releasing space bar causes the character to stop attacking"() {
@@ -55,7 +55,7 @@ class PlayerSpec extends Specification {
         player.keyReleased(Constants.KEY_SPACE)
 
         then:
-        !player.isAttacking()
+        !player.isAttackKeyPressed()
     }
 
     def "a player should be able to create identical projectile copies"() {

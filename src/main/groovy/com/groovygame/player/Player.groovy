@@ -74,7 +74,7 @@ class Player implements KeyListener {
         }
     }
 
-    boolean isAttacking() {
+    boolean isAttackKeyPressed() {
         keysPressed.any {
             return it == Constants.KEY_SPACE
         }
