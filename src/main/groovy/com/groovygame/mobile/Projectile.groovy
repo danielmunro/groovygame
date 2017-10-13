@@ -1,4 +1,4 @@
-package com.groovygame.player
+package com.groovygame.mobile
 
 import com.groovygame.Coords
 import com.groovygame.Direction

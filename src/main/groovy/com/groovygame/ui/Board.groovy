@@ -1,8 +1,8 @@
 package com.groovygame.ui
 
 import com.groovygame.map.Map
-import com.groovygame.player.Player
-import com.groovygame.player.Projectile
+import com.groovygame.mobile.player.Player
+import com.groovygame.mobile.Projectile
 
 import javax.swing.JPanel
 import java.awt.Graphics

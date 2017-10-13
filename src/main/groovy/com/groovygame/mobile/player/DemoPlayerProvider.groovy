@@ -1,8 +1,9 @@
-package com.groovygame.player
+package com.groovygame.mobile.player
 
 import com.groovygame.Coords
 import com.groovygame.Direction
 import com.groovygame.map.Map
+import com.groovygame.mobile.Projectile
 import com.groovygame.ui.Sprite
 
 import javax.imageio.ImageIO

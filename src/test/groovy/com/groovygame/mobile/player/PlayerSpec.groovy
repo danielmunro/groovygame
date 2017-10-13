@@ -1,4 +1,4 @@
-package com.groovygame.player
+package com.groovygame.mobile.player
 
 import com.groovygame.Constants
 import com.groovygame.map.Map

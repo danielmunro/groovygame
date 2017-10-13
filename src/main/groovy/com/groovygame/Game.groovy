@@ -1,7 +1,7 @@
 package com.groovygame
 
-import com.groovygame.player.Player
-import com.groovygame.player.Projectile
+import com.groovygame.mobile.player.Player
+import com.groovygame.mobile.Projectile
 import com.groovygame.ui.Board
 
 class Game {
@@ -12,11 +12,11 @@ class Game {
     private Projectile[] projectiles
 
     void loop() {
-        def lastUpdateMilliseconds = getCurrentMilliseconds()
+        def lastUpdateMilliseconds = 0
         while (running) {
-            if (isReadyForUpdate(lastUpdateMilliseconds, getCurrentMilliseconds())) {
+            if (isReadyForUpdate(lastUpdateMilliseconds, Time.getCurrentMilliseconds())) {
                 update()
-                lastUpdateMilliseconds = getCurrentMilliseconds()
+                lastUpdateMilliseconds = Time.getCurrentMilliseconds()
             }
         }
     }
@@ -26,44 +26,27 @@ class Game {
     }
 
     private void update() {
-        board.repaint(
-                setAndReturnProjectiles(
-                        decayProjectiles(
-                                updateProjectiles(
-                                        updatePlayer(
-                                                projectiles)))))
+        updatePlayer()
+        updateProjectiles()
+        board.repaint(projectiles)
     }
 
-    private Projectile[] updatePlayer(Projectile[] projectiles) {
+    private void updatePlayer() {
         player.move()
         if (player.isAttackKeyPressed()) {
             player.decrementCooldown()
             if (player.canAttack()) {
                 player.resetCooldown()
-                return projectiles + player.getNewProjectile()
+                projectiles = projectiles + player.getNewProjectile()
             }
         }
-
-        projectiles
     }
 
-    private Projectile[] setAndReturnProjectiles(Projectile[] projectiles) {
-        this.projectiles = projectiles
-    }
-
-    private static Projectile[] updateProjectiles(Projectile[] projectiles) {
-        projectiles.collect{
+    private void updateProjectiles() {
+        projectiles = projectiles.collect{
             it.update()
-        }
-    }
-
-    private static Projectile[] decayProjectiles(Projectile[] projectiles) {
-        projectiles.findAll{
+        }.findAll{
             it.getDecay() > 0
         }
-    }
-
-    private static long getCurrentMilliseconds() {
-        new Date().getTime()
     }
 }

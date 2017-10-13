@@ -1,4 +1,4 @@
-package com.groovygame.player
+package com.groovygame.mobile
 
 enum Disposition {
     STANDING, ATTACKING, DEAD

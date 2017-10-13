@@ -1,27 +1,22 @@
-package com.groovygame.player
+package com.groovygame.mobile.player
 
 import com.groovygame.Constants
 import com.groovygame.Coords
 import com.groovygame.Direction
 import com.groovygame.map.Map
+import com.groovygame.mobile.Disposition
+import com.groovygame.mobile.Mob
+import com.groovygame.mobile.Projectile
 import com.groovygame.ui.Board
 
 import java.awt.Graphics2D
 import java.awt.Rectangle
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
-import java.awt.image.BufferedImage
 
-class Player implements KeyListener {
-    private Coords coords
-    private BufferedImage image
+class Player extends Mob implements KeyListener {
     private keysPressed = []
     private Map map
-    private Direction direction = Direction.NONE
-    private Disposition disposition
-    private Projectile projectile
-    private int cooldown
-    private int currentCooldown
 
     void move() {
         keysPressed.clone().each {
@@ -51,7 +46,7 @@ class Player implements KeyListener {
     }
 
     private void applyMove(Coords coords, Direction direction) {
-        if (!map.intersectsBlocking(new Rectangle(coords.x, coords.y, Constants.TILE_SIZE, Constants.TILE_SIZE))) {
+        if (!map.intersectsBlocking(new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE))) {
             this.coords = coords.clone()
         }
         this.direction = direction
@@ -78,33 +73,6 @@ class Player implements KeyListener {
         keysPressed.any {
             return it == Constants.KEY_SPACE
         }
-    }
-
-    boolean canAttack() {
-        currentCooldown < 1
-    }
-
-    void decrementCooldown() {
-        currentCooldown--
-    }
-
-    void resetCooldown() {
-        currentCooldown = cooldown
-    }
-
-    Projectile getNewProjectile() {
-        new Projectile(
-                direction: direction,
-                speed: projectile.getSpeed(),
-                image: projectile.getImage(),
-                damage: projectile.getDamage(),
-                decay: projectile.getDecay(),
-                coords: coords.clone()
-        )
-    }
-
-    Coords getCoords() {
-        coords
     }
 
     @Override
