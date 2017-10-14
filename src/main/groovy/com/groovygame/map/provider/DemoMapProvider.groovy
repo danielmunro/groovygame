@@ -1,6 +1,6 @@
 package com.groovygame.map.provider
 
-import com.groovygame.Coords
+import com.groovygame.util.Coords
 import com.groovygame.map.Layer
 import com.groovygame.map.Map
 import com.groovygame.ui.Sprite

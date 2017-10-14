@@ -1,6 +1,4 @@
-package com.groovygame
-
-//import java.awt.Rectangle
+package com.groovygame.util
 
 class Coords {
     private int x
@@ -20,21 +18,15 @@ class Coords {
     }
 
     Coords clone() {
-        return new Coords(x, y)
+        new Coords(x, y)
     }
 
     boolean equals(Coords c) {
-        return x == c.getX() && y == c.getY()
+        x == c.getX() && y == c.getY()
     }
 
     @Override
     String toString() {
-        return "(" + x + ", " + y + ")"
+        "(" + x + ", " + y + ")"
     }
-
-    /**
-    Rectangle tileRectangle() {
-        new Rectangle(x, y, Constants.TILE_SIZE, Constants.TILE_SIZE)
-    }
-    */
 }

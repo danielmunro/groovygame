@@ -1,4 +1,4 @@
-package com.groovygame
+package com.groovygame.util
 
 class Time {
     static long getCurrentMilliseconds() {

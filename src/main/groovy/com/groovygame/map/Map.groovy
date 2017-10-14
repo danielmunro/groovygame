@@ -1,7 +1,6 @@
 package com.groovygame.map
 
 import com.groovygame.Constants
-import com.groovygame.Coords
 import com.groovygame.ui.Board
 
 import java.awt.Graphics2D

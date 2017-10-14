@@ -3,6 +3,7 @@ package com.groovygame
 import com.groovygame.mobile.player.Player
 import com.groovygame.mobile.Projectile
 import com.groovygame.ui.Board
+import com.groovygame.util.Time
 
 class Game {
     private static final LOOP_WAIT_IN_MILLISECONDS = 3

@@ -1,7 +1,7 @@
 package com.groovygame.ui
 
 import com.groovygame.Constants
-import com.groovygame.Coords
+import com.groovygame.util.Coords
 
 import java.awt.image.BufferedImage
 

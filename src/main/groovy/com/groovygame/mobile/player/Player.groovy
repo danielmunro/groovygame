@@ -1,12 +1,11 @@
 package com.groovygame.mobile.player
 
 import com.groovygame.Constants
-import com.groovygame.Coords
-import com.groovygame.Direction
+import com.groovygame.util.Coords
+import com.groovygame.mobile.Direction
 import com.groovygame.map.Map
 import com.groovygame.mobile.Disposition
 import com.groovygame.mobile.Mob
-import com.groovygame.mobile.Projectile
 import com.groovygame.ui.Board
 
 import java.awt.Graphics2D
@@ -47,7 +46,7 @@ class Player extends Mob implements KeyListener {
 
     private void applyMove(Coords coords, Direction direction) {
         if (!map.intersectsBlocking(new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE))) {
-            this.coords = coords.clone()
+            this.coords = coords
         }
         this.direction = direction
     }
