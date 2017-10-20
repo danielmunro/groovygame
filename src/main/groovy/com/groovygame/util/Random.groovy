@@ -20,7 +20,9 @@ class Random {
         random.nextInt(max)
     }
 
-    static int dice(int n) {
-        instance().getInt(n)
+    static int dice(int roll, int dice) {
+        (0..roll).inject{accumulator, i ->
+            accumulator + instance().getInt(dice) + 1
+        }
     }
 }

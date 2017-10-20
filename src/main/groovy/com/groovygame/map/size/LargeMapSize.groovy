@@ -13,7 +13,7 @@ class LargeMapSize implements MapSize {
     }
 
     int getRandomMountainPeakCountForTopology(MapTopology topology) {
-        Random.dice(9 * topology.getMountainPeakModifier())
+        Random.dice(3, topology.getMountainPeakModifier())
     }
 }
 

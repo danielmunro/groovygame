@@ -13,6 +13,6 @@ class MediumMapSize implements MapSize {
     }
 
     int getRandomMountainPeakCountForTopology(MapTopology topology) {
-        Random.dice(6 * topology.getMountainPeakModifier())
+        Random.dice(2, topology.getMountainPeakModifier())
     }
 }

@@ -8,7 +8,6 @@ import com.groovygame.map.Tile
 import com.groovygame.map.topology.MapTopology
 import com.groovygame.map.size.MapSize
 import com.groovygame.util.Coords
-import com.groovygame.util.Random
 
 import groovy.json.JsonBuilder
 
@@ -63,18 +62,23 @@ class TileMatrix {
     }
 
     private void buildMountainPeaks() {
-        for (def i = 0; i < topology.getMountainPeakModifier(); i++) {
+        def random = new Random()
+        (0..getRandomMountainPeakCount()).each{
             matrix.setValueAtCoords(
                     new Coords(
-                            Random.dice(mapSize.getWidth()),
-                            Random.dice(mapSize.getHeight())
+                            random.nextInt(mapSize.getWidth()),
+                            random.nextInt(mapSize.getHeight())
                     ),
                     new Tile(
                             Terrain.MOUNTAIN_PEAK,
-                            Climate.TEMPERATE
+                             Climate.TEMPERATE
                     )
             )
         }
+    }
+
+    private int getRandomMountainPeakCount() {
+        mapSize.getRandomMountainPeakCountForTopology(topology)
     }
 
     @Override
@@ -82,14 +86,16 @@ class TileMatrix {
         new JsonBuilder(matrix).toString()
     }
 
-    def findInMatrix(Closure c) {
+    List findAllInMatrix(Closure c) {
+        def tiles = []
         for (rows in matrix.getMatrix()) {
             for (col in rows.getValue()) {
                 Tile t = col.getValue()
                 if (c(t)) {
-                    return t
+                    tiles.push(t)
                 }
             }
         }
+        tiles
     }
 }

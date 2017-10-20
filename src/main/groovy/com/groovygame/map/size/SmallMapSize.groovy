@@ -13,6 +13,6 @@ class SmallMapSize implements MapSize {
     }
 
     int getRandomMountainPeakCountForTopology(MapTopology topology) {
-        Random.dice(3 * topology.getMountainPeakModifier())
+        Random.dice(2, topology.getMountainPeakModifier())
     }
 }
