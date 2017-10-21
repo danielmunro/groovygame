@@ -21,16 +21,16 @@ class Player extends Mob implements KeyListener {
         keysPressed.clone().each {
             switch (it) {
                 case Constants.KEY_DOWN:
-                    applyMove(new Coords(coords.getX(), coords.getY() + 1), Direction.DOWN)
+                    moveDown()
                     break
                 case Constants.KEY_UP:
-                    applyMove(new Coords(coords.getX(), coords.getY() - 1), Direction.UP)
+                    moveUp()
                     break
                 case Constants.KEY_LEFT:
-                    applyMove(new Coords(coords.getX() - 1, coords.getY()), Direction.LEFT)
+                    moveLeft()
                     break
                 case Constants.KEY_RIGHT:
-                    applyMove(new Coords(coords.getX() + 1, coords.getY()), Direction.RIGHT)
+                    moveRight()
                     break
             }
         }
@@ -42,6 +42,22 @@ class Player extends Mob implements KeyListener {
                 disposition = Disposition.STANDING
                 break
         }
+    }
+
+    void moveLeft() {
+        applyMove(new Coords(coords.getX() - 1, coords.getY()), Direction.LEFT)
+    }
+
+    void moveRight() {
+        applyMove(new Coords(coords.getX() + 1, coords.getY()), Direction.RIGHT)
+    }
+
+    void moveDown() {
+        applyMove(new Coords(coords.getX(), coords.getY() + 1), Direction.DOWN)
+    }
+
+    void moveUp() {
+        applyMove(new Coords(coords.getX(), coords.getY() - 1), Direction.UP)
     }
 
     private void applyMove(Coords coords, Direction direction) {
