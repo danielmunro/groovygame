@@ -1,6 +1,6 @@
 package com.groovygame.map.topology
 
-import com.groovygame.map.Terrain
+import com.groovygame.map.tile.Terrain
 
 class VariedMapTopology implements MapTopology {
     int getMountainPeakModifier() {

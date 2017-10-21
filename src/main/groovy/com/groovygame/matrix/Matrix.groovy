@@ -6,7 +6,11 @@ class Matrix {
     def matrix = [:]
 
     Matrix(int width, int height) {
-        buildMatrix(width, height)
+        buildMatrix(width, height, {null})
+    }
+
+    Matrix(int width, int height, Closure fill) {
+        buildMatrix(width, height, fill)
     }
 
     void setValueAtCoords(Coords coords, def value) {
@@ -17,11 +21,11 @@ class Matrix {
         matrix[coords.getX()][coords.getY()]
     }
 
-    private void buildMatrix(int width, int height) {
+    private void buildMatrix(int width, int height, Closure fill) {
         for (def y = 0; y < height; y++) {
             matrix[y] = [:]
             for (def x = 0; x < width; x++) {
-                matrix[y][x] = null
+                matrix[y][x] = fill()
             }
         }
     }

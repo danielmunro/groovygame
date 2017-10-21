@@ -1,4 +1,4 @@
-package com.groovygame.map
+package com.groovygame.map.tile
 
 class Tile {
     private Terrain terrain
@@ -18,5 +18,9 @@ class Tile {
 
     Terrain getTerrain() {
         terrain
+    }
+
+    static Tile getMountainPeakTile() {
+        new Tile(Terrain.MOUNTAIN_PEAK, Climate.TEMPERATE)
     }
 }
