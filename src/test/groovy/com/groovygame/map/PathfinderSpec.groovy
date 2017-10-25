@@ -1,5 +1,6 @@
 package com.groovygame.map
 
+import com.groovygame.map.exception.ImpossiblePathException
 import com.groovygame.util.Coords
 import spock.lang.Specification
 
@@ -68,8 +69,11 @@ class PathfinderSpec extends Specification {
         ])
         def pathfinder = new Pathfinder(layer)
 
-        expect:
-        pathfinder.find(new Coords(0, 0), new Coords(5, 3)) == []
+        when:
+        pathfinder.find(new Coords(0, 0), new Coords(5, 3))
+
+        then:
+        ImpossiblePathException e = thrown()
     }
 
     def "nontrivial blocking data to navigate"() {
