@@ -4,7 +4,7 @@ import com.groovygame.util.Coords
 import spock.lang.Specification
 
 class PathfinderSpec extends Specification {
-    def "pathfind me simple case with blocking data"() {
+    def "simple case with blocking data"() {
         setup:
         def layer = new Layer(data:[
                 [0, 0, 0, 0, 0, 0],
@@ -29,7 +29,7 @@ class PathfinderSpec extends Specification {
         ]
     }
 
-    def "pathfind me simple case no blocking data"() {
+    def "simple case no blocking data"() {
         setup:
         def layer = new Layer(data:[
                 [0, 0, 0, 0, 0, 0],
@@ -56,7 +56,7 @@ class PathfinderSpec extends Specification {
         ]
     }
 
-    def "pathfind me no valid path"() {
+    def "no valid path"() {
         setup:
         def layer = new Layer(data:[
                 [0, 0, 0, 0, 0, 0],
@@ -72,7 +72,7 @@ class PathfinderSpec extends Specification {
         pathfinder.find(new Coords(0, 0), new Coords(5, 3)) == []
     }
 
-    def "pathfind me nontrivial"() {
+    def "nontrivial blocking data to navigate"() {
         setup:
         def layer = new Layer(data:[
                 [0, 1, 0, 1, 0, 1, 1],

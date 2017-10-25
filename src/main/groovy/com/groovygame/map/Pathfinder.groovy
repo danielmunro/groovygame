@@ -58,8 +58,7 @@ class Pathfinder {
 
     private calculateFringes(Coords dest, int depth) {
         fringes[depth].each{
-            def neighbors = neighborCoords(it)
-            neighbors.each{ buildFringe(depth+1, it, dest) }
+            neighborCoords(it).each{ buildFringe(depth+1, it, dest) }
             visited << it
         }
     }
