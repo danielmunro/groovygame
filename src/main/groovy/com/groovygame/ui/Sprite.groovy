@@ -2,9 +2,11 @@ package com.groovygame.ui
 
 import com.groovygame.Constants
 import com.groovygame.util.Coords
+import groovy.transform.Immutable
 
 import java.awt.image.BufferedImage
 
+@Immutable
 class Sprite {
     private BufferedImage image
 

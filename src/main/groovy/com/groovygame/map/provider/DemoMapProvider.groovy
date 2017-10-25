@@ -4,9 +4,11 @@ import com.groovygame.util.Coords
 import com.groovygame.map.Layer
 import com.groovygame.map.Map
 import com.groovygame.ui.Sprite
+import groovy.transform.Immutable
 
 import javax.imageio.ImageIO
 
+@Immutable
 class DemoMapProvider implements MapProvider {
     Map getMap() {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))

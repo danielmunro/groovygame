@@ -10,7 +10,7 @@ class PlayerSpec extends Specification {
     Player player
 
     def setup() {
-        player = new DemoPlayerProvider(mock(Map.class)).getPlayer()
+        player = new DemoPlayerProvider(map: mock(Map.class)).getPlayer()
     }
 
     def "should be able to move character down the screen"() {
@@ -63,5 +63,29 @@ class PlayerSpec extends Specification {
 
         then:
         projectile == player.getNewProjectile()
+    }
+
+    def "a player should only be able to add unique key values once"() {
+        setup:
+        player.keyPressed(Constants.KEY_SPACE)
+
+        when:
+        player.keyPressed(Constants.KEY_SPACE)
+
+        then:
+        player.keysPressed().size() == 1
+    }
+
+    def "a player should ignore a key released event that they don't know about"() {
+        setup:
+        player.keyPressed(Constants.KEY_SPACE)
+
+        when:
+        player.keyReleased(Constants.KEY_SPACE)
+        player.keyReleased(Constants.KEY_SPACE)
+
+        then:
+        player.keysPressed().size() == 0
+        !player.isKeyPressed(Constants.KEY_SPACE)
     }
 }

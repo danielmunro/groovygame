@@ -6,7 +6,9 @@ import com.groovygame.map.tile.Climate
 import com.groovygame.map.tile.ResourceLevel
 import com.groovygame.map.topology.FlatMapTopology
 import com.groovygame.map.topology.MountainousMapTopology
+import groovy.transform.Immutable
 
+@Immutable
 class TileMatrixFactory {
     static TileMatrix getNewSmallFlatMap() {
         new TileMatrix(

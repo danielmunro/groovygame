@@ -8,7 +8,7 @@ class TileMatrixSpec extends Specification {
         setup:
         def tm = TileMatrixFactory.getNewSmallFlatMap()
 
-        then:
+        expect:
         def size = TileMatrixFinder.findAllMountainPeaks(tm).size()
         0 < size
         size <= 3
@@ -18,7 +18,7 @@ class TileMatrixSpec extends Specification {
         setup:
         def tm = TileMatrixFactory.getNewLargeMountainousMap()
 
-        then:
+        expect:
         TileMatrixFinder.findAllMountainPeaks(tm).size() >= new MountainousMapTopology().getMountainPeakModifier()
     }
 }

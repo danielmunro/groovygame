@@ -18,7 +18,7 @@ class MapSpec extends Specification {
                                 ]
                         )
         )
-        def startCoords = new Coords(Constants.TILE_SIZE, Constants.TILE_SIZE)
+        def startCoords = Coords.at(Constants.TILE_SIZE, Constants.TILE_SIZE)
         def player = new Player(map: map, coords: startCoords)
 
         when:

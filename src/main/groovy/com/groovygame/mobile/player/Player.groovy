@@ -2,7 +2,7 @@ package com.groovygame.mobile.player
 
 import com.groovygame.Constants
 import com.groovygame.util.Coords
-import com.groovygame.mobile.Direction
+import com.groovygame.util.Direction
 import com.groovygame.map.Map
 import com.groovygame.mobile.Disposition
 import com.groovygame.mobile.Mob
@@ -85,9 +85,17 @@ class Player extends Mob implements KeyListener {
     }
 
     boolean isAttackKeyPressed() {
+        isKeyPressed(Constants.KEY_SPACE)
+    }
+
+    boolean isKeyPressed(int keyCode) {
         keysPressed.any {
-            return it == Constants.KEY_SPACE
+            return it == keyCode
         }
+    }
+
+    List keysPressed() {
+        keysPressed
     }
 
     @Override

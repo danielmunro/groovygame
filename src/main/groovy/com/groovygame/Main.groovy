@@ -32,7 +32,7 @@ class Main {
     }
 
     private static PlayerProvider getPlayerProvider(Map map) {
-        new DemoPlayerProvider(map)
+        new DemoPlayerProvider(map: map)
     }
 
     private static MapProvider getMapProvider() {

@@ -1,5 +1,6 @@
 package com.groovygame.mobile
 
+import com.groovygame.util.Direction
 import com.groovygame.util.Coords
 
 import java.awt.image.BufferedImage

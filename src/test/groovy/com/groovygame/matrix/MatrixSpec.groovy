@@ -16,9 +16,9 @@ class MatrixSpec extends Specification {
     def "matrices should be mutable"() {
         when:
         def m = new Matrix(5, 5)
-        m.setValueAtCoords(new Coords(3, 2), 'foo')
+        m.setValueAtCoords(Coords.at(3, 2), 'foo')
 
         then:
-        m.getValueAtCoords(new Coords(3, 2)) == 'foo'
+        m.getValueAtCoords(Coords.at(3, 2)) == 'foo'
     }
 }

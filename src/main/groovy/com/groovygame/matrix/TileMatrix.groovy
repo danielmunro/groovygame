@@ -22,7 +22,7 @@ class TileMatrix {
         this.topology = topology
         this.resourceLevel = resourceLevel
         this.climate = climate
-        matrix = new Matrix(mapSize.getWidth(), mapSize.getHeight(), {new Tile(Terrain.PLAINS, Climate.TEMPERATE)})
+        matrix = new Matrix(mapSize.getWidth(), mapSize.getHeight(), {new Tile(terrain: Terrain.PLAINS, climate: Climate.TEMPERATE)})
         random = new Random()
         buildTileMatrix()
     }

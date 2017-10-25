@@ -1,7 +1,7 @@
 package com.groovygame.mobile.player
 
 import com.groovygame.util.Coords
-import com.groovygame.mobile.Direction
+import com.groovygame.util.Direction
 import com.groovygame.map.Map
 import com.groovygame.mobile.Projectile
 import com.groovygame.ui.Sprite
@@ -10,10 +10,6 @@ import javax.imageio.ImageIO
 
 class DemoPlayerProvider implements PlayerProvider {
     Map map
-
-    DemoPlayerProvider(Map map) {
-        this.map = map
-    }
 
     Player getPlayer() {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))

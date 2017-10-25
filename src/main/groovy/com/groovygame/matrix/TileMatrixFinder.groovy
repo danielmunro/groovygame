@@ -1,7 +1,9 @@
 package com.groovygame.matrix
 
 import com.groovygame.map.tile.Terrain
+import groovy.transform.Immutable
 
+@Immutable
 class TileMatrixFinder {
     static findAllMountainPeaks(TileMatrix tileMatrix) {
         tileMatrix.findAllInMatrix{

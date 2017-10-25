@@ -1,9 +1,12 @@
 package com.groovygame.mobile
 
+import com.groovygame.util.Direction
 import com.groovygame.util.Coords
+import groovy.transform.Immutable
 
 import java.awt.image.BufferedImage
 
+@Immutable
 class Projectile {
     private Direction direction
     private BufferedImage image

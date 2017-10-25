@@ -1,28 +1,29 @@
 package com.groovygame.util
 
+import groovy.transform.Immutable
+
+@Immutable
 class Coords {
-    private int x
-    private int y
+    int x
+    int y
 
-    Coords(int x, int y) {
-        this.x = x
-        this.y = y
+    static at(int x, int y) {
+        new Coords(x: x, y: y)
     }
 
-    int getX() {
-        x
+    boolean isNeighbor(Coords c) {
+        def xdiff = Math.abs(this.x - c.getX())
+        def ydiff = Math.abs(this.y - c.getY())
+
+        xdiff == 1 && ydiff == 0 || xdiff == 0 && ydiff == 1
     }
 
-    int getY() {
-        y
+    def distanceFrom(Coords c) {
+        return Math.sqrt(Math.pow(x - c.getX(), 2) + Math.pow(y - c.getY(), 2))
     }
 
     Coords clone() {
         new Coords(x, y)
-    }
-
-    boolean equals(Coords c) {
-        x == c.getX() && y == c.getY()
     }
 
     @Override
