@@ -17,8 +17,8 @@ class Fringe {
         this.coords << coords
     }
 
-    Coords[] getCoords() {
-        this.coords.clone()
+    ArrayList<Coords> getCoords() {
+        (ArrayList<Coords>) this.coords.clone()
     }
 
     int size() {

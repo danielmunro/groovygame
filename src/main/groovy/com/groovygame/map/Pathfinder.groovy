@@ -7,10 +7,8 @@ class Pathfinder {
     private Layer blockingLayer
     private ArrayList<Fringe> fringes = new ArrayList<Fringe>()
     private boolean fringesBuilt = false
-    private boolean pathToDestinationFound = false
     private Coords src
     private def visited = []
-    private def path = []
 
     Pathfinder(Layer blockingLayer) {
         this.blockingLayer = blockingLayer
@@ -28,15 +26,12 @@ class Pathfinder {
             depth++
         }
         findPath(src, dest, getInitialPath(), 1)
-        path
     }
 
     private void resetSearch() {
         fringes = [new Fringe(getInitialPath())]
         fringesBuilt = false
-        pathToDestinationFound = false
         visited = []
-        path = []
     }
 
     private ArrayList<Coords> getInitialPath() {
@@ -51,15 +46,13 @@ class Pathfinder {
             if (current.isNeighbor(it)) {
                 if (it == dest) {
                     currentPath << it
-                    path = currentPath
-                    pathToDestinationFound = true
-                    return
+                    return currentPath
                 }
                 def newPath = newPathFromCurrentPath(currentPath)
                 newPath << it
-                findPath(it, dest, newPath, currentDepth + 1)
-                if (pathToDestinationFound) {
-                    return
+                def completePath = findPath(it, dest, newPath, currentDepth + 1)
+                if (completePath) {
+                    return completePath
                 }
             }
         }
