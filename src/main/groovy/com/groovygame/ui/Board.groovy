@@ -3,6 +3,7 @@ package com.groovygame.ui
 import com.groovygame.map.Map
 import com.groovygame.mobile.player.Player
 import com.groovygame.mobile.Projectile
+import com.groovygame.util.Explosion
 
 import javax.swing.JPanel
 import java.awt.Graphics
@@ -14,6 +15,7 @@ class Board extends JPanel implements ActionListener {
     private Map map
     private Player player
     private ArrayList<Projectile> projectiles = new ArrayList<Projectile>()
+    private ArrayList<Explosion> explosions = new ArrayList<Explosion>()
 
     @Override
     void paintComponent(Graphics g) {
@@ -27,8 +29,9 @@ class Board extends JPanel implements ActionListener {
         repaint()
     }
 
-    void repaint(ArrayList<Projectile> projectiles) {
+    void repaint(ArrayList<Projectile> projectiles, ArrayList<Explosion> explosions) {
         this.projectiles = projectiles
+        this.explosions = explosions
         super.repaint()
     }
 
@@ -38,6 +41,9 @@ class Board extends JPanel implements ActionListener {
         player.draw(g2d, this)
         projectiles.each{
             g2d.drawImage(it.getImage(), it.getCoords().getX(), it.getCoords().getY(), this)
+        }
+        explosions.each{
+            g2d.drawImage(it.getAnimationFrameImage(), it.getCoords().getX(), it.getCoords().getY(), this)
         }
     }
 }

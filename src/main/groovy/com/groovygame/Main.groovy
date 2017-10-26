@@ -8,7 +8,9 @@ import com.groovygame.mobile.player.Player
 import com.groovygame.mobile.player.PlayerProvider
 import com.groovygame.ui.Board
 import com.groovygame.ui.Frame
+import com.groovygame.ui.Sprite
 
+import javax.imageio.ImageIO
 import java.awt.EventQueue
 
 class Main {
@@ -16,9 +18,10 @@ class Main {
         def map = getMapProvider().getMap()
         def player = getPlayerProvider(map).getPlayer()
         def board = new Board(player: player, map: map)
+        def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
         initFrame(board, player)
 
-        new Game(player: player, board: board, map: map).loop()
+        new Game(player: player, board: board, map: map, sprites: sprite).loop()
     }
 
     private static void initFrame(Board board, Player player) {
