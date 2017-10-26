@@ -18,7 +18,7 @@ class Main {
         def board = new Board(player: player, map: map)
         initFrame(board, player)
 
-        new Game(player: player, board: board).loop()
+        new Game(player: player, board: board, map: map).loop()
     }
 
     private static void initFrame(Board board, Player player) {

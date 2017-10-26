@@ -13,7 +13,7 @@ import java.awt.event.ActionListener
 class Board extends JPanel implements ActionListener {
     private Map map
     private Player player
-    private Projectile[] projectiles
+    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>()
 
     @Override
     void paintComponent(Graphics g) {
@@ -27,7 +27,7 @@ class Board extends JPanel implements ActionListener {
         repaint()
     }
 
-    void repaint(Projectile[] projectiles) {
+    void repaint(ArrayList<Projectile> projectiles) {
         this.projectiles = projectiles
         super.repaint()
     }
