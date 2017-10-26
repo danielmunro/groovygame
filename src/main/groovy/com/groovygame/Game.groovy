@@ -1,5 +1,6 @@
 package com.groovygame
 
+import com.groovygame.map.Map
 import com.groovygame.mobile.player.Player
 import com.groovygame.mobile.Projectile
 import com.groovygame.ui.Board
@@ -10,7 +11,8 @@ class Game {
     private boolean running = true
     private Player player
     private Board board
-    private Projectile[] projectiles
+    private Map map
+    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>()
 
     void loop() {
         def lastUpdateMilliseconds = 0
@@ -38,7 +40,7 @@ class Game {
             player.decrementCooldown()
             if (player.canAttack()) {
                 player.resetCooldown()
-                projectiles = projectiles + player.getNewProjectile()
+                projectiles << player.getNewProjectile()
             }
         }
     }
@@ -47,7 +49,7 @@ class Game {
         projectiles = projectiles.collect{
             it.update()
         }.findAll{
-            it.getDecay() > 0
+            it.getDecay() > 0 && !map.intersectsBlocking(it.getHitBox())
         }
     }
 }

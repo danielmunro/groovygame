@@ -4,6 +4,7 @@ import com.groovygame.util.Direction
 import com.groovygame.util.Coords
 import groovy.transform.Immutable
 
+import java.awt.Rectangle
 import java.awt.image.BufferedImage
 
 @Immutable
@@ -58,6 +59,10 @@ class Projectile {
             default:
                 return new Coords(coords.getX() + speed, coords.getY())
         }
+    }
+
+    Rectangle getHitBox() {
+        new Rectangle(coords.getX(), coords.getY(), image.width, image.height)
     }
 
     boolean equals(Projectile p) {
