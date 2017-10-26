@@ -5,6 +5,14 @@ import com.groovygame.util.Coords
 class Fringe {
     ArrayList<Coords> coords = []
 
+    Fringe(ArrayList<Coords> coords) {
+        this.coords = coords
+    }
+
+    Fringe() {
+        this.coords = []
+    }
+
     void addCoords(Coords coords) {
         this.coords << coords
     }

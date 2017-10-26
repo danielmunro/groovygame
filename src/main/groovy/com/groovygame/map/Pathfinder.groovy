@@ -6,7 +6,8 @@ import com.groovygame.util.Coords
 class Pathfinder {
     private Layer blockingLayer
     private ArrayList<Fringe> fringes = new ArrayList<Fringe>()
-    private boolean found
+    private boolean fringesBuilt = false
+    private boolean pathToDestinationFound = false
     private Coords src
     private def visited = []
     private def path = []
@@ -17,24 +18,25 @@ class Pathfinder {
 
     def find(Coords src, Coords dest) {
         this.src = src
+        resetSearch()
         int depth = 0
-        Fringe f = new Fringe()
-        f.addCoords(src)
-        fringes << f
-        while(true) {
-            def fringeSize = fringes.size()
-            if (fringeSize > 0 && fringeSize == depth) {
+        while(!fringesBuilt) {
+            if (fringes.size() == depth) {
                 throw new ImpossiblePathException()
             }
-            calculateFringes(dest, depth)
+            buildFringe(dest, depth)
             depth++
-            if (found) {
-                break
-            }
         }
-        found = false
         findPath(src, dest, getInitialPath(), 1)
         path
+    }
+
+    private void resetSearch() {
+        fringes = [new Fringe(getInitialPath())]
+        fringesBuilt = false
+        pathToDestinationFound = false
+        visited = []
+        path = []
     }
 
     private ArrayList<Coords> getInitialPath() {
@@ -50,13 +52,13 @@ class Pathfinder {
                 if (it == dest) {
                     currentPath << it
                     path = currentPath
-                    found = true
+                    pathToDestinationFound = true
                     return
                 }
                 def newPath = newPathFromCurrentPath(currentPath)
                 newPath << it
                 findPath(it, dest, newPath, currentDepth + 1)
-                if (found) {
+                if (pathToDestinationFound) {
                     return
                 }
             }
@@ -67,22 +69,24 @@ class Pathfinder {
         (ArrayList<Coords>) currentPath.clone()
     }
 
-    private calculateFringes(Coords dest, int depth) {
-        fringes[depth].getCoords().each{ Coords it ->
-            neighborCoords(it).each{ buildFringe(depth+1, it, dest) }
-            visited << it
+    private buildFringe(Coords dest, int depth) {
+        fringes[depth].getCoords().each{
+            neighborCoords(it).each{
+                considerAddingCoordsToFringe(depth+1, it, dest)
+            }
         }
     }
 
-    private buildFringe(int depth, Coords coords, Coords dest) {
+    private considerAddingCoordsToFringe(int depth, Coords coords, Coords dest) {
         if (!visited.contains(coords)) {
             if (fringes.size() == depth) {
                 fringes << new Fringe()
             }
             fringes[depth].addCoords(coords)
             if (coords == dest) {
-                found = true
+                fringesBuilt = true
             }
+            visited << coords
         }
     }
 
@@ -94,17 +98,10 @@ class Pathfinder {
                 new Coords(origin.getX(), origin.getY()+1)
         ]
         .findAll{
-            !visited.contains(it) && coordsInBounds(it) && blockingLayer.isNotBlocked(it)
+            !visited.contains(it) && blockingLayer.areCoordsWalkable(it)
         }
         .sort{ Coords a, Coords b ->
             src.distanceFrom(a) - src.distanceFrom(b)
         }
-    }
-
-    private boolean coordsInBounds(Coords coords) {
-        coords.getX() >= 0 &&
-                coords.getX() <= blockingLayer.width()-1 &&
-                coords.getY() >= 0 &&
-                coords.getY() <= blockingLayer.height()-1
     }
 }

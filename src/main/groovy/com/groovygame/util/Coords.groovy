@@ -22,10 +22,6 @@ class Coords {
         return Math.sqrt(Math.pow(x - c.getX(), 2) + Math.pow(y - c.getY(), 2))
     }
 
-    Coords clone() {
-        new Coords(x, y)
-    }
-
     @Override
     String toString() {
         "(" + x + ", " + y + ")"

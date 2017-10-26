@@ -37,7 +37,7 @@ class Mob {
                 image: projectile.getImage(),
                 damage: projectile.getDamage(),
                 decay: projectile.getDecay(),
-                coords: coords.clone()
+                coords: coords
         )
     }
 }

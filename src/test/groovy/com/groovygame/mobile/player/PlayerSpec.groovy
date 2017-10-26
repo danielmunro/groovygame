@@ -15,7 +15,7 @@ class PlayerSpec extends Specification {
 
     def "should be able to move character down the screen"() {
         setup:
-        def initialCoords = player.getCoords().clone()
+        def initialCoords = player.getCoords()
 
         when:
         player.moveDown()
@@ -29,7 +29,7 @@ class PlayerSpec extends Specification {
         player.keyPressed(Constants.KEY_DOWN)
         player.move()
         player.keyReleased(Constants.KEY_DOWN)
-        def initialCoords = player.getCoords().clone()
+        def initialCoords = player.getCoords()
 
         when:
         player.move()
