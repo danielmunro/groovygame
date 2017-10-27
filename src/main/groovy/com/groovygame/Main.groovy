@@ -21,7 +21,7 @@ class Main {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
         initFrame(board, player)
 
-        new Game(player: player, board: board, map: map, sprites: sprite).loop()
+        new GameLoop(player: player, board: board, map: map, sprites: sprite).loop()
     }
 
     private static void initFrame(Board board, Player player) {
