@@ -64,9 +64,10 @@ class Game {
         projectiles = projectiles.collect{
             it.update()
         }.findAll{
-            if (!hasExpired(it)) {
+            if (!isProjectileReadyToExplode(it)) {
                 return true
             }
+            checkMobHit(it)
             explosions << new Explosion(
                     it.coords,
                     (ArrayList<BufferedImage>) [
@@ -75,21 +76,25 @@ class Game {
                             sprites.getImageAtCoords(Coords.at(17, 10))
                     ]
             )
-
             return false
         }
     }
 
     private void updateExplosions() {
-        explosions.each{
-            it.proceedAnimationFrame()
-        }
         explosions = explosions.findAll{
+            it.proceedAnimationFrame()
             !it.hasCompleted()
         }
     }
 
-    private boolean hasExpired(Projectile projectile) {
+    private void checkMobHit(Projectile projectile) {
+        def mob = map.findIntersectingMob(projectile.getHitBox())
+        if (mob) {
+            map.removeMob(mob)
+        }
+    }
+
+    private boolean isProjectileReadyToExplode(Projectile projectile) {
         projectile.getDecay() <= 0 || map.intersectsBlocking(projectile.getHitBox())
     }
 }

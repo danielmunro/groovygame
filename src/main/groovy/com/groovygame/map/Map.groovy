@@ -1,6 +1,7 @@
 package com.groovygame.map
 
 import com.groovygame.Constants
+import com.groovygame.mobile.Mob
 import com.groovygame.ui.Board
 
 import java.awt.Graphics2D
@@ -11,6 +12,7 @@ class Map {
     private Layer background
     private Layer blocking
     private Layer foreground
+    private ArrayList<Mob> mobs = new ArrayList<Mob>()
 
     private static void drawLayer(Layer layer, Graphics2D graphics2D, Board board) {
         layer.getData().eachWithIndex{ int[] row, int y ->
@@ -40,6 +42,20 @@ class Map {
     }
 
     boolean intersectsBlocking(Rectangle rectangle) {
+        findIntersectingMob(rectangle) || intersectsMapTile(rectangle)
+    }
+
+    Mob findIntersectingMob(Rectangle rectangle) {
+        mobs.find{
+            it.getHitBox().intersects(rectangle)
+        }
+    }
+
+    void removeMob(Mob mob) {
+        mobs.remove(mob)
+    }
+
+    private boolean intersectsMapTile(Rectangle rectangle) {
         def data = blocking.getData()
         for (int y = 0; y < data.length; y++) {
             for (int x = 0; x < data[y].length; x++) {
@@ -48,10 +64,24 @@ class Map {
                 }
             }
         }
+
+        false
     }
 
     void draw(Graphics2D graphics2D, Board board) {
         drawLayer(background, graphics2D, board)
         drawLayer(blocking, graphics2D, board)
+        drawMobs(graphics2D, board)
+    }
+
+    private void drawMobs(Graphics2D graphics2D, Board board) {
+        mobs.each{
+            graphics2D.drawImage(
+                    it.getImage(),
+                    it.getCoords().getX() * Constants.TILE_SIZE,
+                    it.getCoords().getY() * Constants.TILE_SIZE,
+                    board
+            )
+        }
     }
 }

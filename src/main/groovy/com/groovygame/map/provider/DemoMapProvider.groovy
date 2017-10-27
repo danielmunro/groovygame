@@ -1,5 +1,7 @@
 package com.groovygame.map.provider
 
+import com.groovygame.mobile.Disposition
+import com.groovygame.mobile.Mob
 import com.groovygame.util.Coords
 import com.groovygame.map.Layer
 import com.groovygame.map.Map
@@ -44,7 +46,13 @@ class DemoMapProvider implements MapProvider {
                 tiles: [
                     sprite.getImageAtCoords(new Coords(0, 14))
                 ]
-            )
+            ),
+            mobs: [
+                    new Mob(
+                            image: sprite.getImageAtCoords(Coords.at(0, 3)),
+                            coords: Coords.at(7, 7)
+                    )
+            ]
         )
     }
 }
