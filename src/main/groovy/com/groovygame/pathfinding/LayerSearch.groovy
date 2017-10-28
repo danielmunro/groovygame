@@ -18,15 +18,12 @@ class LayerSearch {
         this.src = src
         this.dest = dest
         collection = new FringeCollection(src)
-        int depth = 0
-        while (!collection.fringesBuilt()) {
-            if (collection.getFringeSize() == depth) {
-                throw new ImpossiblePathException()
-            }
-            buildFringe(depth)
-            depth++
-        }
+        buildFringeStructure()
         findPath(src, getInitialPath(), 1)
+    }
+
+    private boolean isDepthAtEdgeOfFringe(int depth) {
+        collection.getFringeSize() == depth
     }
 
     private getInitialPath() {
@@ -57,6 +54,17 @@ class LayerSearch {
         newPath
     }
 
+    private void buildFringeStructure() {
+        int depth = 0
+        while (!collection.fringesBuilt()) {
+            if (isDepthAtEdgeOfFringe(depth)) {
+                throw new ImpossiblePathException()
+            }
+            buildFringe(depth)
+            depth++
+        }
+    }
+
     private buildFringe(int depth) {
         collection.getCoordsAtDepth(depth).each{
             getValidDistanceSortedNeighborCoords(it).each{
@@ -67,7 +75,7 @@ class LayerSearch {
 
     private considerAddingCoordsToFringe(int depth, Coords coords) {
         if (!collection.wasVisited(coords)) {
-            if (collection.getFringeSize() == depth) {
+            if (isDepthAtEdgeOfFringe(depth)) {
                 collection.increaseDepth()
             }
             collection.addCoordsAtDepth(depth, coords)
