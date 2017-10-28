@@ -1,7 +1,7 @@
 package com.groovygame.map
 
 import com.groovygame.Constants
-import com.groovygame.mobile.Mob
+import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
 
 import java.awt.Graphics2D
@@ -12,7 +12,7 @@ class Map {
     private Layer background
     private Layer blocking
     private Layer foreground
-    private ArrayList<Mob> mobs = new ArrayList<Mob>()
+    private List<Mob> mobs = new ArrayList<Mob>()
 
     private static void drawLayer(Layer layer, Graphics2D graphics2D, Board board) {
         layer.getData().eachWithIndex{ int[] row, int y ->
@@ -53,6 +53,10 @@ class Map {
 
     void removeMob(Mob mob) {
         mobs.remove(mob)
+    }
+
+    List<Mob> getMobs() {
+        (ArrayList<Mob>) mobs.clone()
     }
 
     private boolean intersectsMapTile(Rectangle rectangle) {

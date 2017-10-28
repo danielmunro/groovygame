@@ -1,8 +1,8 @@
 package com.groovygame.game
 
 import com.groovygame.map.Map
-import com.groovygame.mobile.Projectile
-import com.groovygame.mobile.player.Player
+import com.groovygame.mob.Projectile
+import com.groovygame.mob.player.Player
 import com.groovygame.ui.Board
 import com.groovygame.ui.Sprite
 import com.groovygame.util.Coords

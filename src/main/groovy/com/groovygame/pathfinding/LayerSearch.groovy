@@ -30,7 +30,7 @@ class LayerSearch {
         [src]
     }
 
-    private findPath(Coords current, List<Coords> currentPath, int currentDepth) {
+    private List<Coords> findPath(Coords current, List<Coords> currentPath, int currentDepth) {
         if (collection.getFringeSize() == currentDepth) {
             return
         }

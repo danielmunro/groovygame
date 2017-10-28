@@ -1,8 +1,7 @@
-package com.groovygame.mobile
+package com.groovygame.mob
 
-import com.groovygame.Constants
-import com.groovygame.util.Direction
 import com.groovygame.util.Coords
+import com.groovygame.util.Direction
 
 import java.awt.Rectangle
 import java.awt.image.BufferedImage
@@ -15,6 +14,7 @@ class Mob {
     protected Projectile projectile
     protected int cooldown
     protected int currentCooldown
+    private Patrol patrol
 
     BufferedImage getImage() {
         image
@@ -49,5 +49,17 @@ class Mob {
 
     Rectangle getHitBox() {
         new Rectangle(coords.getX() * Constants.TILE_SIZE, coords.getY() * Constants.TILE_SIZE, image.width, image.height)
+    }
+
+    void patrol() {
+        patrol.proceed(this)
+    }
+
+    List<Coords> getPatrolPath() {
+        patrol.getPath()
+    }
+
+    void setCoords(Coords coords) {
+        this.coords = coords
     }
 }

@@ -1,4 +1,4 @@
-package com.groovygame.mobile
+package com.groovygame.mob
 
 import com.groovygame.util.Direction
 import com.groovygame.util.Coords

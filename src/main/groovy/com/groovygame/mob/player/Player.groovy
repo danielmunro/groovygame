@@ -1,11 +1,11 @@
-package com.groovygame.mobile.player
+package com.groovygame.mob.player
 
 import com.groovygame.Constants
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
 import com.groovygame.map.Map
-import com.groovygame.mobile.Disposition
-import com.groovygame.mobile.Mob
+import com.groovygame.mob.Disposition
+import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
 
 import java.awt.Graphics2D

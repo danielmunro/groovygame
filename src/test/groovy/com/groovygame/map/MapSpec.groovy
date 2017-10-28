@@ -1,7 +1,7 @@
 package com.groovygame.map
 
 import com.groovygame.Constants
-import com.groovygame.mobile.player.Player
+import com.groovygame.mob.player.Player
 import com.groovygame.util.Coords
 import spock.lang.Specification
 
