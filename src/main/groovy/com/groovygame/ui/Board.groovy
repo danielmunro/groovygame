@@ -14,8 +14,8 @@ import java.awt.event.ActionListener
 class Board extends JPanel implements ActionListener {
     private Map map
     private Player player
-    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>()
-    private ArrayList<Explosion> explosions = new ArrayList<Explosion>()
+    private List<Projectile> projectiles = new ArrayList<Projectile>()
+    private List<Explosion> explosions = new ArrayList<Explosion>()
 
     @Override
     void paintComponent(Graphics g) {
@@ -29,7 +29,7 @@ class Board extends JPanel implements ActionListener {
         repaint()
     }
 
-    void repaint(ArrayList<Projectile> projectiles, ArrayList<Explosion> explosions) {
+    void repaint(List<Projectile> projectiles, List<Explosion> explosions) {
         this.projectiles = projectiles
         this.explosions = explosions
         super.repaint()

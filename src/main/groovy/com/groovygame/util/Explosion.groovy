@@ -8,7 +8,7 @@ class Explosion {
     private ArrayList<BufferedImage> animation
     private int frame = 0
 
-    Explosion(Coords coords, ArrayList<BufferedImage> animation) {
+    Explosion(Coords coords, List<BufferedImage> animation) {
         this.coords = coords
         this.animation = animation
     }

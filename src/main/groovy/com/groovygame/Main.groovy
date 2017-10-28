@@ -1,5 +1,7 @@
 package com.groovygame
 
+import com.groovygame.game.Loop
+import com.groovygame.game.Service
 import com.groovygame.map.Map
 import com.groovygame.map.provider.DemoMapProvider
 import com.groovygame.map.provider.MapProvider
@@ -20,8 +22,9 @@ class Main {
         def board = new Board(player: player, map: map)
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
         initFrame(board, player)
+        def service = new Service(player: player, board: board, map: map, sprites: sprite)
 
-        new GameLoop(player: player, board: board, map: map, sprites: sprite).loop()
+        new Loop(service: service).loop()
     }
 
     private static void initFrame(Board board, Player player) {

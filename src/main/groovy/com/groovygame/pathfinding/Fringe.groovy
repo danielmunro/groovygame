@@ -1,11 +1,11 @@
-package com.groovygame.map
+package com.groovygame.pathfinding
 
 import com.groovygame.util.Coords
 
 class Fringe {
-    ArrayList<Coords> coords = []
+    List<Coords> coords = []
 
-    Fringe(ArrayList<Coords> coords) {
+    Fringe(def coords) {
         this.coords = coords
     }
 
@@ -17,8 +17,8 @@ class Fringe {
         this.coords << coords
     }
 
-    ArrayList<Coords> getCoords() {
-        (ArrayList<Coords>) this.coords.clone()
+    def getCoords() {
+        this.coords
     }
 
     int size() {

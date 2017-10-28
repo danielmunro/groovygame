@@ -1,52 +1,29 @@
-package com.groovygame
+package com.groovygame.game
 
 import com.groovygame.map.Map
-import com.groovygame.mobile.player.Player
 import com.groovygame.mobile.Projectile
+import com.groovygame.mobile.player.Player
 import com.groovygame.ui.Board
 import com.groovygame.ui.Sprite
 import com.groovygame.util.Coords
 import com.groovygame.util.Explosion
-import com.groovygame.util.Time
 
-import java.awt.image.BufferedImage
-
-class GameLoop {
-    private static final LOOP_WAIT_IN_MILLISECONDS = 3
-    private static final UPDATES_PER_ANIMATION_LOOP = 8
-    private int updatesSinceLastAnimationLoop = 0
-    private boolean running = true
+class Service {
     private Player player
     private Board board
     private Map map
     private Sprite sprites
-    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>()
-    private ArrayList<Explosion> explosions = new ArrayList<Explosion>()
+    private List<Projectile> projectiles = new ArrayList<Projectile>()
+    private List<Explosion> explosions = new ArrayList<Explosion>()
 
-    void loop() {
-        def lastUpdateMilliseconds = 0
-        while (running) {
-            if (isReadyForUpdate(lastUpdateMilliseconds, Time.getCurrentMilliseconds())) {
-                update()
-                lastUpdateMilliseconds = Time.getCurrentMilliseconds()
-            }
-        }
-    }
-
-    private static boolean isReadyForUpdate(long lastUpdate, long currentTime) {
-        return currentTime > lastUpdate + LOOP_WAIT_IN_MILLISECONDS
-    }
-
-    private void update() {
+    void gameLoopUpdate() {
         updatePlayer()
         updateProjectiles()
         board.repaint(projectiles, explosions)
-        if (updatesSinceLastAnimationLoop > UPDATES_PER_ANIMATION_LOOP) {
-            updateExplosions()
-            updatesSinceLastAnimationLoop = 0
-        } else {
-            updatesSinceLastAnimationLoop++
-        }
+    }
+
+    void animationFrameUpdate() {
+        explosions = updateExplosions()
     }
 
     private void updatePlayer() {
@@ -70,7 +47,7 @@ class GameLoop {
             checkMobHit(it)
             explosions << new Explosion(
                     it.coords,
-                    (ArrayList<BufferedImage>) [
+                    [
                             sprites.getImageAtCoords(Coords.at(19, 10)),
                             sprites.getImageAtCoords(Coords.at(18, 10)),
                             sprites.getImageAtCoords(Coords.at(17, 10))
@@ -80,8 +57,8 @@ class GameLoop {
         }
     }
 
-    private void updateExplosions() {
-        explosions = explosions.findAll{
+    private List<Explosion> updateExplosions() {
+         explosions.findAll{
             it.proceedAnimationFrame()
             !it.hasCompleted()
         }

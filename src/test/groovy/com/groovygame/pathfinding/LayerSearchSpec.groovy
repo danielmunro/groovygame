@@ -1,10 +1,12 @@
-package com.groovygame.map
+package com.groovygame.pathfinding
 
+import com.groovygame.map.Layer
 import com.groovygame.map.exception.ImpossiblePathException
+import com.groovygame.pathfinding.LayerSearch
 import com.groovygame.util.Coords
 import spock.lang.Specification
 
-class PathfinderSpec extends Specification {
+class LayerSearchSpec extends Specification {
     def "simple case with blocking data"() {
         setup:
         def layer = new Layer(data:[
@@ -15,7 +17,7 @@ class PathfinderSpec extends Specification {
                 [0, 1, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0]
         ])
-        def pathfinder = new Pathfinder(layer)
+        def pathfinder = new LayerSearch(layer)
 
         expect:
         pathfinder.find(new Coords(2, 1), new Coords(2, 4)) == [
@@ -30,6 +32,34 @@ class PathfinderSpec extends Specification {
         ]
     }
 
+    def "another test case"() {
+        setup:
+        def layer = new Layer(data:[
+                [0, 0, 1, 0, 0, 0],
+                [0, 0, 0, 0, 1, 0],
+                [0, 0, 1, 1, 1, 0],
+                [0, 0, 0, 0, 1, 0],
+                [1, 1, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0]
+        ])
+        def search = new LayerSearch(layer)
+
+        expect:
+        search.find(new Coords(5, 5), new Coords(0, 0)) == [
+                Coords.at(5, 5),
+                Coords.at(4, 5),
+                Coords.at(3, 5),
+                Coords.at(3, 4),
+                Coords.at(3, 3),
+                Coords.at(2, 3),
+                Coords.at(1, 3),
+                Coords.at(0, 3),
+                Coords.at(0, 2),
+                Coords.at(0, 1),
+                Coords.at(0, 0)
+        ]
+    }
+
     def "simple case no blocking data"() {
         setup:
         def layer = new Layer(data:[
@@ -40,7 +70,7 @@ class PathfinderSpec extends Specification {
                 [0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0]
         ])
-        def pathfinder = new Pathfinder(layer)
+        def pathfinder = new LayerSearch(layer)
 
         expect:
         pathfinder.find(new Coords(0, 0), new Coords(5, 4)) == [
@@ -67,7 +97,7 @@ class PathfinderSpec extends Specification {
                 [0, 1, 0, 0, 1, 0],
                 [0, 0, 0, 0, 1, 0]
         ])
-        def pathfinder = new Pathfinder(layer)
+        def pathfinder = new LayerSearch(layer)
 
         when:
         pathfinder.find(new Coords(0, 0), new Coords(5, 3))
@@ -86,7 +116,7 @@ class PathfinderSpec extends Specification {
                 [1, 0, 1, 0, 1, 1, 0],
                 [1, 0, 0, 0, 0, 0, 0]
         ])
-        def pathfinder = new Pathfinder(layer)
+        def pathfinder = new LayerSearch(layer)
 
         expect:
         pathfinder.find(new Coords(0, 0), new Coords(6, 1)) == [
