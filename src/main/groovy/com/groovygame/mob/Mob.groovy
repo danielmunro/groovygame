@@ -1,5 +1,6 @@
 package com.groovygame.mob
 
+import com.groovygame.Constants
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
 
@@ -16,15 +17,15 @@ class Mob {
     protected int currentCooldown
     private Patrol patrol
 
-    BufferedImage getImage() {
+    def getImage() {
         image
     }
 
-    Coords getCoords() {
+    def getCoords() {
         coords
     }
 
-    boolean canAttack() {
+    def canAttack() {
         currentCooldown < 1
     }
 
@@ -36,7 +37,7 @@ class Mob {
         currentCooldown = cooldown
     }
 
-    Projectile getNewProjectile() {
+    def getNewProjectile() {
         new Projectile(
                 direction: direction,
                 speed: projectile.getSpeed(),
@@ -47,7 +48,7 @@ class Mob {
         )
     }
 
-    Rectangle getHitBox() {
+    def getHitBox() {
         new Rectangle(coords.getX() * Constants.TILE_SIZE, coords.getY() * Constants.TILE_SIZE, image.width, image.height)
     }
 

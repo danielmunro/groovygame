@@ -15,6 +15,7 @@ import javax.imageio.ImageIO
 class DemoMapProvider implements MapProvider {
     Map getMap() {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
+        def mobSrcCoords = new Coords(7, 7)
         def blockingLayer = new Layer(
                 data: [
                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -52,11 +53,12 @@ class DemoMapProvider implements MapProvider {
             mobs: [
                     new Mob(
                             image: sprite.getImageAtCoords(Coords.at(0, 3)),
-                            coords: Coords.at(7, 7),
+                            coords: mobSrcCoords,
                             patrol: new Patrol(
-                                    src: Coords.at(7, 7),
-                                    dest: Coords.at(3, 7),
-                                    path: new LayerSearch(blockingLayer).find(Coords.at(7,7), Coords.at(3, 7))
+                                    path: new LayerSearch(blockingLayer).find(
+                                            mobSrcCoords,
+                                            Coords.at(3, 7)
+                                    )
                             )
                     )
             ]

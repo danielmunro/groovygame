@@ -3,8 +3,6 @@ package com.groovygame.mob
 import com.groovygame.util.Coords
 
 class Patrol {
-    private Coords src
-    private Coords dest
     private List<Coords> path
     private boolean headingTowardDest = true
 

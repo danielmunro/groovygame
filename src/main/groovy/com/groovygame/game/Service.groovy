@@ -1,11 +1,11 @@
 package com.groovygame.game
 
+import com.groovygame.animation.BlueExplosionAnimation
 import com.groovygame.map.Map
 import com.groovygame.mob.Projectile
 import com.groovygame.mob.player.Player
 import com.groovygame.ui.Board
 import com.groovygame.ui.Sprite
-import com.groovygame.util.Coords
 import com.groovygame.util.Explosion
 
 class Service {
@@ -18,7 +18,7 @@ class Service {
 
     void gameLoopUpdate() {
         updatePlayer()
-        updateProjectiles()
+        projectiles = updateProjectiles()
         board.repaint(projectiles, explosions)
     }
 
@@ -37,8 +37,8 @@ class Service {
         }
     }
 
-    private void updateProjectiles() {
-        projectiles = projectiles.collect{
+    private updateProjectiles() {
+        projectiles.collect{
             it.update()
         }.findAll{
             if (!isProjectileReadyToExplode(it)) {
@@ -47,11 +47,7 @@ class Service {
             checkMobHit(it)
             explosions << new Explosion(
                     it.coords,
-                    [
-                            sprites.getImageAtCoords(Coords.at(19, 10)),
-                            sprites.getImageAtCoords(Coords.at(18, 10)),
-                            sprites.getImageAtCoords(Coords.at(17, 10))
-                    ]
+                    new BlueExplosionAnimation().createAnimationFramesFromSprite(sprites)
             )
             return false
         }
