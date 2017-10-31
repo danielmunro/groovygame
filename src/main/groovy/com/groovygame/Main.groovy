@@ -23,8 +23,9 @@ class Main {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
         initFrame(board, player)
         def service = new Service(player: player, board: board, map: map, sprites: sprite)
-
-        new Loop(service: service).loop()
+        def loop = new Loop()
+        loop.addObserver(service)
+        loop.loop()
     }
 
     private static void initFrame(Board board, Player player) {

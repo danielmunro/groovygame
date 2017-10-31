@@ -7,14 +7,23 @@ import com.groovygame.mob.player.Player
 import com.groovygame.ui.Board
 import com.groovygame.ui.Sprite
 import com.groovygame.util.Explosion
+import com.groovygame.util.UpdateTimer
 
-class Service {
+class Service implements Observer {
     private Player player
     private Board board
     private Map map
     private Sprite sprites
     private List<Projectile> projectiles = new ArrayList<Projectile>()
     private List<Explosion> explosions = new ArrayList<Explosion>()
+    private UpdateTimer explosionAnimationTimer = new UpdateTimer(24)
+
+    @Override
+    void update(Observable o, Object arg) {
+        def deltaInMilliseconds = (int) arg
+        updateExplosionAnimationTimer(deltaInMilliseconds)
+        gameLoopUpdate()
+    }
 
     void gameLoopUpdate() {
         updatePlayer()
@@ -22,8 +31,12 @@ class Service {
         board.repaint(projectiles, explosions)
     }
 
-    void animationFrameUpdate() {
-        explosions = updateExplosions()
+    void updateExplosionAnimationTimer(int deltaInMilliseconds) {
+        explosionAnimationTimer.addMilliseconds(deltaInMilliseconds)
+        if (explosionAnimationTimer.isReadyForUpdate()) {
+            explosions = updateExplosions()
+            explosionAnimationTimer.resetUpdateCounter()
+        }
     }
 
     private void updatePlayer() {
@@ -45,10 +58,9 @@ class Service {
                 return true
             }
             checkMobHit(it)
-            explosions << new Explosion(
-                    it.coords,
-                    new BlueExplosionAnimation().createAnimationFramesFromSprite(sprites)
-            )
+            def animation = new BlueExplosionAnimation()
+            animation.createAnimationFramesFromSprite(sprites)
+            explosions << new Explosion(it.coords, animation.getAnimationFrames())
             return false
         }
     }

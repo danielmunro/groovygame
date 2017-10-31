@@ -4,7 +4,7 @@ import groovy.transform.Immutable
 
 @Immutable
 class Time {
-    static long getCurrentMilliseconds() {
+    static int getCurrentMilliseconds() {
         new Date().getTime()
     }
 }
