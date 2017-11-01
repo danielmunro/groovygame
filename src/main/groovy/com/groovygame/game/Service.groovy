@@ -17,25 +17,34 @@ class Service implements Observer {
     private List<Projectile> projectiles = new ArrayList<Projectile>()
     private List<Explosion> explosions = new ArrayList<Explosion>()
     private UpdateTimer explosionAnimationTimer = new UpdateTimer(24)
+    private UpdateTimer playerUpdateTimer = new UpdateTimer(5)
 
     @Override
     void update(Observable o, Object arg) {
         def deltaInMilliseconds = (int) arg
         updateExplosionAnimationTimer(deltaInMilliseconds)
+        updatePlayerTimer(deltaInMilliseconds)
         gameLoopUpdate()
     }
 
-    void gameLoopUpdate() {
-        updatePlayer()
+    private void gameLoopUpdate() {
         projectiles = updateProjectiles()
         board.repaint(projectiles, explosions)
     }
 
-    void updateExplosionAnimationTimer(int deltaInMilliseconds) {
+    private void updateExplosionAnimationTimer(int deltaInMilliseconds) {
         explosionAnimationTimer.addMilliseconds(deltaInMilliseconds)
         if (explosionAnimationTimer.isReadyForUpdate()) {
             explosions = updateExplosions()
             explosionAnimationTimer.resetUpdateCounter()
+        }
+    }
+
+    private void updatePlayerTimer(int deltaInMilliseconds) {
+        playerUpdateTimer.addMilliseconds(deltaInMilliseconds)
+        if (playerUpdateTimer.isReadyForUpdate()) {
+            updatePlayer()
+            playerUpdateTimer.resetUpdateCounter()
         }
     }
 

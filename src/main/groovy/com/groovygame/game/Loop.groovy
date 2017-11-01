@@ -1,28 +1,27 @@
 package com.groovygame.game
 
 import com.groovygame.util.Time
+import com.groovygame.util.UpdateTimer
 
 class Loop extends Observable {
-    private static final LOOP_WAIT_IN_MILLISECONDS = 3
-    private boolean running = true
+    private int lastUpdateInMilliseconds = Time.getCurrentMilliseconds()
+    private UpdateTimer timer = new UpdateTimer(100)
 
     void loop() {
-        def lastUpdateMilliseconds = 0
-        while (running) {
+        while (1) {
             def currentTimeInMilliseconds = Time.getCurrentMilliseconds()
-            if (isReadyForUpdate(lastUpdateMilliseconds, currentTimeInMilliseconds)) {
-                update(currentTimeInMilliseconds - lastUpdateMilliseconds)
-                lastUpdateMilliseconds = currentTimeInMilliseconds
+            def deltaInMilliseconds = currentTimeInMilliseconds - lastUpdateInMilliseconds
+            timer.addMilliseconds(deltaInMilliseconds)
+            if (timer.isReadyForUpdate()) {
+                update(currentTimeInMilliseconds, deltaInMilliseconds)
             }
         }
     }
 
-    private static boolean isReadyForUpdate(long lastUpdate, long currentTime) {
-        return currentTime > lastUpdate + LOOP_WAIT_IN_MILLISECONDS
-    }
-
-    private void update(int deltaInMilliseconds) {
+    private void update(int currentTimeInMilliseconds, int deltaInMilliseconds) {
         setChanged()
         notifyObservers(deltaInMilliseconds)
+        timer.resetUpdateCounter()
+        lastUpdateInMilliseconds = currentTimeInMilliseconds
     }
 }
