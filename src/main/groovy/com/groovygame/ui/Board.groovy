@@ -1,9 +1,8 @@
 package com.groovygame.ui
 
+import com.groovygame.game.Service
 import com.groovygame.map.Map
 import com.groovygame.mob.player.Player
-import com.groovygame.mob.Projectile
-import com.groovygame.animation.Animation
 
 import javax.swing.JPanel
 import java.awt.Graphics
@@ -11,11 +10,15 @@ import java.awt.Graphics2D
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
-class Board extends JPanel implements ActionListener {
+class Board extends JPanel implements ActionListener, Observer {
     private Map map
     private Player player
-    private List<Projectile> projectiles = new ArrayList<Projectile>()
-    private List<Animation> explosions = new ArrayList<Animation>()
+    private Service service
+
+    @Override
+    void update(Observable o, Object arg) {
+        repaint()
+    }
 
     @Override
     void paintComponent(Graphics g) {
@@ -29,21 +32,10 @@ class Board extends JPanel implements ActionListener {
         repaint()
     }
 
-    void repaint(List<Projectile> projectiles, List<Animation> explosions) {
-        this.projectiles = projectiles
-        this.explosions = explosions
-        super.repaint()
-    }
-
     private void drawImage(Graphics g) {
         Graphics2D g2d = (Graphics2D) g
         map.draw(g2d, this)
         player.draw(g2d, this)
-        projectiles.each{
-            g2d.drawImage(it.getImage(), it.getCoords().getX(), it.getCoords().getY(), this)
-        }
-        explosions.each{
-            g2d.drawImage(it.getAnimationFrameImage(), it.getCoords().getX(), it.getCoords().getY(), this)
-        }
+        service.draw(g2d, this)
     }
 }

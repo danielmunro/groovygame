@@ -19,11 +19,12 @@ class Main {
     static void main(String[] args) {
         def map = getMapProvider().getMap()
         def player = getPlayerProvider(map).getPlayer()
-        def board = new Board(player: player, map: map)
+        def service = new Service(player: player, map: map)
+        def board = new Board(player: player, map: map, service: service)
         initFrame(board, player)
-        def service = new Service(player: player, board: board, map: map)
         def loop = new Loop()
         loop.addObserver(service)
+        loop.addObserver(board)
         loop.loop()
     }
 

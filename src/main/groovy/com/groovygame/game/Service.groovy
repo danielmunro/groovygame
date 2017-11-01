@@ -3,18 +3,28 @@ package com.groovygame.game
 import com.groovygame.map.Map
 import com.groovygame.mob.Projectile
 import com.groovygame.mob.player.Player
-import com.groovygame.ui.Board
 import com.groovygame.animation.Animation
 import com.groovygame.util.UpdateTimer
 
+import javax.swing.JPanel
+import java.awt.Graphics2D
+
 class Service implements Observer {
     private Player player
-    private Board board
     private Map map
     private List<Projectile> projectiles = new ArrayList<Projectile>()
     private List<Animation> explosions = new ArrayList<Animation>()
     private UpdateTimer explosionAnimationTimer = new UpdateTimer(24)
     private UpdateTimer playerUpdateTimer = new UpdateTimer(5)
+
+    void draw(Graphics2D g2d, JPanel panel) {
+        projectiles.each{
+            g2d.drawImage(it.getImage(), it.getCoords().getX(), it.getCoords().getY(), panel)
+        }
+        explosions.each{
+            g2d.drawImage(it.getAnimationFrameImage(), it.getCoords().getX(), it.getCoords().getY(), panel)
+        }
+    }
 
     @Override
     void update(Observable o, Object arg) {
@@ -26,23 +36,18 @@ class Service implements Observer {
 
     private void gameLoopUpdate() {
         projectiles = updateProjectiles()
-        board.repaint(projectiles, explosions)
     }
 
     private void updateExplosionAnimationTimer(int deltaInMilliseconds) {
-        explosionAnimationTimer.addMilliseconds(deltaInMilliseconds)
-        if (explosionAnimationTimer.isReadyForUpdate()) {
-            explosions = updateExplosions()
-            explosionAnimationTimer.resetUpdateCounter()
-        }
+        explosionAnimationTimer.poll(deltaInMilliseconds, {
+                explosions = updateExplosions()
+        })
     }
 
     private void updatePlayerTimer(int deltaInMilliseconds) {
-        playerUpdateTimer.addMilliseconds(deltaInMilliseconds)
-        if (playerUpdateTimer.isReadyForUpdate()) {
-            updatePlayer()
-            playerUpdateTimer.resetUpdateCounter()
-        }
+        playerUpdateTimer.poll(deltaInMilliseconds, {
+                updatePlayer()
+        })
     }
 
     private void updatePlayer() {
