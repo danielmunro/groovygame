@@ -38,14 +38,8 @@ class Mob {
     }
 
     def getNewProjectile() {
-        new Projectile(
-                direction: direction,
-                speed: projectile.getSpeed(),
-                image: projectile.getImage(),
-                damage: projectile.getDamage(),
-                decay: projectile.getDecay(),
-                coords: coords
-        )
+        projectile.update(direction, coords)
+        (Projectile) projectile.clone()
     }
 
     def getHitBox() {

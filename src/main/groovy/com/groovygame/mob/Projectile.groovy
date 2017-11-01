@@ -1,20 +1,25 @@
 package com.groovygame.mob
 
+import com.groovygame.animation.Animation
 import com.groovygame.util.Direction
 import com.groovygame.util.Coords
-import groovy.transform.Immutable
 
 import java.awt.Rectangle
 import java.awt.image.BufferedImage
 
-@Immutable
-class Projectile {
+class Projectile implements Cloneable {
     private Direction direction
     private BufferedImage image
     private int damage
     private int speed
     private int decay
     private Coords coords
+    private List<BufferedImage> explosionImages
+
+    void update(Direction direction, Coords coords) {
+        this.direction = direction
+        this.coords = coords
+    }
 
     int getSpeed() {
         speed
@@ -36,15 +41,9 @@ class Projectile {
         coords
     }
 
-    Projectile update() {
-        new Projectile(
-                direction: direction,
-                image: image,
-                damage: damage,
-                speed: speed,
-                decay: decay - 1,
-                coords: calculateNewCoordsFromVelocity()
-        )
+    void update() {
+        decay--
+        coords = calculateNewCoordsFromVelocity()
     }
 
     Coords calculateNewCoordsFromVelocity() {
@@ -67,5 +66,9 @@ class Projectile {
 
     boolean equals(Projectile p) {
         return image.hashCode() == p.getImage().hashCode()
+    }
+
+    Animation getExplosionAnimation() {
+        new Animation(coords, explosionImages)
     }
 }

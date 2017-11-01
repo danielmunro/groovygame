@@ -1,5 +1,6 @@
 package com.groovygame.mob.player
 
+import com.groovygame.animation.BlueExplosionAnimationProvider
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
 import com.groovygame.map.Map
@@ -28,7 +29,8 @@ class DemoPlayerProvider implements PlayerProvider {
                                 new Coords(238, 1284),
                                 4,
                                 1
-                        )
+                        ),
+                        explosionImages: new BlueExplosionAnimationProvider(sprite).getAnimationFrames()
                 )
         )
     }
