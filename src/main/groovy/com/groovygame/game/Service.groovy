@@ -1,12 +1,12 @@
 package com.groovygame.game
 
-import com.groovygame.animation.BlueExplosionAnimation
+import com.groovygame.animation.BlueExplosionAnimationProvider
 import com.groovygame.map.Map
 import com.groovygame.mob.Projectile
 import com.groovygame.mob.player.Player
 import com.groovygame.ui.Board
 import com.groovygame.ui.Sprite
-import com.groovygame.util.Explosion
+import com.groovygame.animation.Animation
 import com.groovygame.util.UpdateTimer
 
 class Service implements Observer {
@@ -15,7 +15,7 @@ class Service implements Observer {
     private Map map
     private Sprite sprites
     private List<Projectile> projectiles = new ArrayList<Projectile>()
-    private List<Explosion> explosions = new ArrayList<Explosion>()
+    private List<Animation> explosions = new ArrayList<Animation>()
     private UpdateTimer explosionAnimationTimer = new UpdateTimer(24)
     private UpdateTimer playerUpdateTimer = new UpdateTimer(5)
 
@@ -67,14 +67,12 @@ class Service implements Observer {
                 return true
             }
             checkMobHit(it)
-            def animation = new BlueExplosionAnimation()
-            animation.createAnimationFramesFromSprite(sprites)
-            explosions << new Explosion(it.coords, animation.getAnimationFrames())
+            explosions << new Animation(it.coords, new BlueExplosionAnimationProvider(sprites).getAnimationFrames())
             return false
         }
     }
 
-    private List<Explosion> updateExplosions() {
+    private List<Animation> updateExplosions() {
          explosions.findAll{
             it.proceedAnimationFrame()
             !it.hasCompleted()

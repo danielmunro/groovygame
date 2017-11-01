@@ -1,15 +1,33 @@
 package com.groovygame.animation
 
-import com.groovygame.ui.Sprite
+import com.groovygame.util.Coords
 
+import java.awt.Image
 import java.awt.image.BufferedImage
 
-abstract class Animation {
-    protected List<BufferedImage> animationFrames
+class Animation {
+    private Coords coords
+    private ArrayList<BufferedImage> animation
+    private int frame = 0
 
-    abstract void createAnimationFramesFromSprite(Sprite sprite)
+    Animation(Coords coords, List<BufferedImage> animation) {
+        this.coords = coords
+        this.animation = animation
+    }
 
-    List<BufferedImage> getAnimationFrames() {
-        animationFrames
+    Image getAnimationFrameImage() {
+        animation[frame]
+    }
+
+    Coords getCoords() {
+        coords
+    }
+
+    void proceedAnimationFrame() {
+        frame++
+    }
+
+    boolean hasCompleted() {
+        return frame >= animation.size()
     }
 }
