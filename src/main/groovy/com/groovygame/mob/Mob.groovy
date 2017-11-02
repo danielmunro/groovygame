@@ -43,7 +43,7 @@ class Mob {
     }
 
     def getHitBox() {
-        new Rectangle(coords.getX() * Constants.TILE_SIZE, coords.getY() * Constants.TILE_SIZE, image.width, image.height)
+        new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE)
     }
 
     void patrol() {

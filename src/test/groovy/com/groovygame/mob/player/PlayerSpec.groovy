@@ -1,5 +1,6 @@
 package com.groovygame.mob.player
 
+import com.groovygame.game.Service
 import com.groovygame.util.Constants
 import com.groovygame.map.Map
 import spock.lang.Specification
@@ -10,7 +11,7 @@ class PlayerSpec extends Specification {
     Player player
 
     def setup() {
-        player = new DemoPlayerProvider(map: mock(Map.class)).getPlayer()
+        player = new DemoPlayerProvider(service: new Service(map: mock(Map.class))).getPlayer()
     }
 
     def "should be able to move character down the screen"() {

@@ -1,6 +1,7 @@
 package com.groovygame.mob
 
 import com.groovygame.map.provider.DemoMapProvider
+import com.groovygame.util.Constants
 import spock.lang.Specification
 
 class MobSpec extends Specification {
@@ -11,14 +12,14 @@ class MobSpec extends Specification {
         def path = mob.getPatrolPath()
 
         expect:
-        mob.getCoords() == path[0]
+        mob.getCoords().scale(Constants.TILE_SCALE) == path[0]
 
         for (def i = 0; i < path.size()-1; i++) {
             when:
             mob.patrol()
 
             then:
-            mob.getCoords() == path[i+1]
+            mob.getCoords().scale(Constants.TILE_SCALE) == path[i+1]
         }
 
         for (def i = path.size(); i > 0; i--) {
@@ -26,7 +27,7 @@ class MobSpec extends Specification {
             mob.patrol()
 
             then:
-            mob.getCoords() == path[i-1]
+            mob.getCoords().scale(Constants.TILE_SCALE) == path[i-1]
         }
     }
 }

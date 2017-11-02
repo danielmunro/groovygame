@@ -14,6 +14,10 @@ class LayerSearch {
         this.layer = layer
     }
 
+    def scaleAndFind(BigDecimal scale, Coords src, Coords dest) {
+        find(src.scale(scale), dest.scale(scale))
+    }
+
     def find(Coords src, Coords dest) {
         this.src = src
         this.dest = dest

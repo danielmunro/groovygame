@@ -11,6 +11,10 @@ class Coords {
         new Coords(x: x, y: y)
     }
 
+    def scale(BigDecimal newScale) {
+        new Coords(x: x * newScale, y: y * newScale)
+    }
+
     boolean isNeighbor(Coords c) {
         def xdiff = Math.abs(this.x - c.getX())
         def ydiff = Math.abs(this.y - c.getY())

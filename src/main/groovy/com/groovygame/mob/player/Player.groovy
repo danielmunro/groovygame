@@ -4,7 +4,6 @@ import com.groovygame.game.Service
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
-import com.groovygame.map.Map
 import com.groovygame.mob.Disposition
 import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
@@ -17,7 +16,6 @@ import java.awt.event.KeyListener
 
 class Player extends Mob implements KeyListener, Observer {
     private keysPressed = []
-    private Map map
     private Service service
     private UpdateTimer moveUpdateTimer = new UpdateTimer(5)
     private UpdateTimer attackUpdateTimer = new UpdateTimer(5)
@@ -83,7 +81,7 @@ class Player extends Mob implements KeyListener, Observer {
     }
 
     private void applyMove(Coords coords, Direction direction) {
-        if (!map.intersectsBlocking(new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE))) {
+        if (!service.isMapBlocking(new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE))) {
             this.coords = coords
         }
         this.direction = direction

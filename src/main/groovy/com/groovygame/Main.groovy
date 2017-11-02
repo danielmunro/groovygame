@@ -19,9 +19,13 @@ class Main {
     static void main(String[] args) {
         def map = getMapProvider().getMap()
         def service = new Service(map: map)
-        def player = getPlayerProvider(service, map).getPlayer()
+        def player = getPlayerProvider(service).getPlayer()
         def board = new Board(player: player, map: map, service: service)
         initFrame(board, player)
+        initGameLoop(service, board, player)
+    }
+
+    private static void initGameLoop(Service service, Board board, Player player) {
         def loop = new Loop()
         loop.addObserver(service)
         loop.addObserver(board)
@@ -39,8 +43,8 @@ class Main {
         })
     }
 
-    private static PlayerProvider getPlayerProvider(Service service, Map map) {
-        new DemoPlayerProvider(service: service, map: map)
+    private static PlayerProvider getPlayerProvider(Service service) {
+        new DemoPlayerProvider(service: service)
     }
 
     private static MapProvider getMapProvider() {

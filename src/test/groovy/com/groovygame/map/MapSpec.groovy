@@ -1,7 +1,9 @@
 package com.groovygame.map
 
-import com.groovygame.util.Constants
+import com.groovygame.game.Service
+import com.groovygame.mob.player.DemoPlayerProvider
 import com.groovygame.mob.player.Player
+import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import spock.lang.Specification
 
@@ -18,8 +20,12 @@ class MapSpec extends Specification {
                                 ]
                         )
         )
+        def service = new Service(map: map)
         def startCoords = Coords.at(Constants.TILE_SIZE, Constants.TILE_SIZE)
-        def player = new Player(map: map, coords: startCoords)
+        def player = new Player(
+                coords: startCoords,
+                service: service
+        )
 
         when:
         player.moveRight()

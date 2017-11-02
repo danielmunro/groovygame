@@ -7,4 +7,5 @@ abstract class Constants {
     final static KEY_LEFT = 37
     final static KEY_RIGHT = 39
     final static KEY_SPACE = 32
+    final static TILE_SCALE = 1/32
 }

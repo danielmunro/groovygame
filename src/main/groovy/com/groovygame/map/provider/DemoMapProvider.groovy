@@ -3,6 +3,7 @@ package com.groovygame.map.provider
 import com.groovygame.mob.Mob
 import com.groovygame.mob.Patrol
 import com.groovygame.pathfinding.LayerSearch
+import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import com.groovygame.map.Layer
 import com.groovygame.map.Map
@@ -55,9 +56,10 @@ class DemoMapProvider implements MapProvider {
                             image: sprite.getImageAtCoords(Coords.at(0, 3)),
                             coords: mobSrcCoords,
                             patrol: new Patrol(
-                                    path: new LayerSearch(blockingLayer).find(
+                                    path: new LayerSearch(blockingLayer).scaleAndFind(
+                                            (1/Constants.TILE_SIZE),
                                             mobSrcCoords,
-                                            Coords.at(3, 7)
+                                            Coords.at(3 * Constants.TILE_SIZE, 7 * Constants.TILE_SIZE)
                                     )
                             )
                     )

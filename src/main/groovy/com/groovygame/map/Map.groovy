@@ -80,12 +80,7 @@ class Map {
 
     private void drawMobs(Graphics2D graphics2D, Board board) {
         mobs.each{
-            graphics2D.drawImage(
-                    it.getImage(),
-                    it.getCoords().getX() * Constants.TILE_SIZE,
-                    it.getCoords().getY() * Constants.TILE_SIZE,
-                    board
-            )
+            graphics2D.drawImage(it.getImage(), it.getCoords().getX(), it.getCoords().getY(), board)
         }
     }
 }
