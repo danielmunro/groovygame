@@ -1,5 +1,6 @@
 package com.groovygame.mob
 
+import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 
 class Patrol {
@@ -11,27 +12,36 @@ class Patrol {
     }
 
     def proceed(Mob mob) {
-        for (int i = 0; i < path.size(); i++) {
-            if (path[i] == mob.getCoords()) {
-                mob.setCoords(getNextPath(i))
+        if (headingTowardDest) {
+            for (int i = 0; i < path.size() - 1; i++) {
+                if (path[i] == mob.getCoords().scale(Constants.TILE_SCALE)) {
+                    mob.setCoords(getNextPath(mob.getCoords(), i + 1))
+                    return
+                }
+            }
+            headingTowardDest = false
+            return
+        }
+        for (int i = path.size(); i > 0; i--) {
+            if (path[i] == mob.getCoords().scale(Constants.TILE_SCALE)) {
+                mob.setCoords(getNextPath(mob.getCoords(), i - 1))
                 return
             }
         }
+        headingTowardDest = true
     }
 
-    def getNextPath(int i) {
-        def nextI = i+1
-        if (headingTowardDest && path.size() > nextI) {
-            return path[nextI]
-        } else {
-            headingTowardDest = false
+    def getNextPath(Coords origin, int nextI) {
+        Coords nextCoords = path[nextI].scale(Constants.TILE_SIZE)
+        [
+                new Coords(origin.getX()-1, origin.getY()),
+                new Coords(origin.getX(), origin.getY()-1),
+                new Coords(origin.getX()+1, origin.getY()),
+                new Coords(origin.getX(), origin.getY()+1),
+        ]
+        .sort{ Coords a, Coords b ->
+             nextCoords.distanceFrom(a) - nextCoords.distanceFrom(b)
         }
-
-        if (i == 0) {
-            headingTowardDest = true
-            return path[1]
-        }
-
-        return path[nextI]
+        .first()
     }
 }

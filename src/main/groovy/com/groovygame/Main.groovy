@@ -5,6 +5,7 @@ import com.groovygame.game.Service
 import com.groovygame.map.Map
 import com.groovygame.map.provider.DemoMapProvider
 import com.groovygame.map.provider.MapProvider
+import com.groovygame.mob.Mob
 import com.groovygame.mob.player.DemoPlayerProvider
 import com.groovygame.mob.player.Player
 import com.groovygame.mob.player.PlayerProvider
@@ -22,14 +23,18 @@ class Main {
         def player = getPlayerProvider(service).getPlayer()
         def board = new Board(player: player, map: map, service: service)
         initFrame(board, player)
-        initGameLoop(service, board, player)
+        initGameLoop(service, board, player, map.getMobs())
     }
 
-    private static void initGameLoop(Service service, Board board, Player player) {
+    private static void initGameLoop(Service service, Board board, Player player, List<Mob> mobs) {
         def loop = new Loop()
         loop.addObserver(service)
         loop.addObserver(board)
         loop.addObserver(player)
+        mobs.each{
+            it.setService(service)
+            loop.addObserver(it)
+        }
         loop.loop()
     }
 
