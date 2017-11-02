@@ -1,4 +1,4 @@
-package com.groovygame
+package com.groovygame.util
 
 abstract class Constants {
     final static TILE_SIZE = 32

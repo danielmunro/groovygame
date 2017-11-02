@@ -1,6 +1,6 @@
 package com.groovygame.ui
 
-import com.groovygame.Constants
+import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import groovy.transform.Immutable
 

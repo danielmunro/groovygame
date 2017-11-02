@@ -1,6 +1,6 @@
 package com.groovygame.mob.player
 
-import com.groovygame.Constants
+import com.groovygame.util.Constants
 import com.groovygame.map.Map
 import spock.lang.Specification
 

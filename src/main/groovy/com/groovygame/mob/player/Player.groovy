@@ -1,6 +1,6 @@
 package com.groovygame.mob.player
 
-import com.groovygame.Constants
+import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
 import com.groovygame.map.Map
