@@ -11,12 +11,9 @@ class Loop extends Observable {
         while (1) {
             def currentTimeInMilliseconds = Time.getCurrentMilliseconds()
             def deltaInMilliseconds = currentTimeInMilliseconds - lastUpdateInMilliseconds
-            timer.poll(
-                    deltaInMilliseconds,
-                    {
-                        update(currentTimeInMilliseconds, deltaInMilliseconds)
-                    }
-            )
+            timer.poll(deltaInMilliseconds, {
+                    update(currentTimeInMilliseconds, deltaInMilliseconds)
+            })
         }
     }
 
