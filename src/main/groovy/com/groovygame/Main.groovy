@@ -18,13 +18,14 @@ import java.awt.EventQueue
 class Main {
     static void main(String[] args) {
         def map = getMapProvider().getMap()
-        def player = getPlayerProvider(map).getPlayer()
-        def service = new Service(player: player, map: map)
+        def service = new Service(map: map)
+        def player = getPlayerProvider(service, map).getPlayer()
         def board = new Board(player: player, map: map, service: service)
         initFrame(board, player)
         def loop = new Loop()
         loop.addObserver(service)
         loop.addObserver(board)
+        loop.addObserver(player)
         loop.loop()
     }
 
@@ -38,8 +39,8 @@ class Main {
         })
     }
 
-    private static PlayerProvider getPlayerProvider(Map map) {
-        new DemoPlayerProvider(map: map)
+    private static PlayerProvider getPlayerProvider(Service service, Map map) {
+        new DemoPlayerProvider(service: service, map: map)
     }
 
     private static MapProvider getMapProvider() {

@@ -1,5 +1,6 @@
 package com.groovygame.mob.player
 
+import com.groovygame.game.Service
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
@@ -7,15 +8,26 @@ import com.groovygame.map.Map
 import com.groovygame.mob.Disposition
 import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
+import com.groovygame.util.UpdateTimer
 
 import java.awt.Graphics2D
 import java.awt.Rectangle
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 
-class Player extends Mob implements KeyListener {
+class Player extends Mob implements KeyListener, Observer {
     private keysPressed = []
     private Map map
+    private Service service
+    private UpdateTimer moveUpdateTimer = new UpdateTimer(5)
+    private UpdateTimer attackUpdateTimer = new UpdateTimer(5)
+
+    @Override
+    void update(Observable o, Object arg) {
+        def deltaInMilliseconds = (int) arg
+        moveUpdateTimer.poll(deltaInMilliseconds, { move() })
+        attackUpdateTimer.poll(deltaInMilliseconds, { attack() })
+    }
 
     void move() {
         keysPressed.clone().each {
@@ -32,6 +44,16 @@ class Player extends Mob implements KeyListener {
                 case Constants.KEY_RIGHT:
                     moveRight()
                     break
+            }
+        }
+    }
+
+    void attack() {
+        if (isAttackKeyPressed()) {
+            decrementCooldown()
+            if (canAttack()) {
+                resetCooldown()
+                service.addProjectile(getNewProjectile())
             }
         }
     }

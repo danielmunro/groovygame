@@ -2,7 +2,6 @@ package com.groovygame.game
 
 import com.groovygame.map.Map
 import com.groovygame.mob.Projectile
-import com.groovygame.mob.player.Player
 import com.groovygame.animation.Animation
 import com.groovygame.util.UpdateTimer
 
@@ -10,12 +9,11 @@ import javax.swing.JPanel
 import java.awt.Graphics2D
 
 class Service implements Observer {
-    private Player player
     private Map map
     private List<Projectile> projectiles = new ArrayList<Projectile>()
     private List<Animation> explosions = new ArrayList<Animation>()
     private UpdateTimer explosionAnimationTimer = new UpdateTimer(24)
-    private UpdateTimer playerUpdateTimer = new UpdateTimer(5)
+    private UpdateTimer projectileAnimationTimer = new UpdateTimer(5)
 
     void draw(Graphics2D g2d, JPanel panel) {
         projectiles.each{
@@ -30,42 +28,24 @@ class Service implements Observer {
     void update(Observable o, Object arg) {
         def deltaInMilliseconds = (int) arg
         updateExplosionAnimationTimer(deltaInMilliseconds)
-        updatePlayerTimer(deltaInMilliseconds)
-        gameLoopUpdate()
+        updateProjectileAnimationTimer(deltaInMilliseconds)
     }
 
-    private void gameLoopUpdate() {
-        projectiles = updateProjectiles()
+    void addProjectile(Projectile projectile) {
+        projectiles << projectile
+    }
+
+    private void updateProjectileAnimationTimer(int deltaInMilliseconds) {
+        projectileAnimationTimer.poll(deltaInMilliseconds, { projectiles = updateProjectiles() })
     }
 
     private void updateExplosionAnimationTimer(int deltaInMilliseconds) {
-        explosionAnimationTimer.poll(deltaInMilliseconds, {
-                explosions = updateExplosions()
-        })
-    }
-
-    private void updatePlayerTimer(int deltaInMilliseconds) {
-        playerUpdateTimer.poll(deltaInMilliseconds, {
-                updatePlayer()
-        })
-    }
-
-    private void updatePlayer() {
-        player.move()
-        if (player.isAttackKeyPressed()) {
-            player.decrementCooldown()
-            if (player.canAttack()) {
-                player.resetCooldown()
-                projectiles << player.getNewProjectile()
-            }
-        }
+        explosionAnimationTimer.poll(deltaInMilliseconds, { explosions = updateExplosions() })
     }
 
     private updateProjectiles() {
-        projectiles.each{
-            it.update()
-        }
         projectiles.findAll{
+            it.update()
             if (!isProjectileReadyToExplode(it)) {
                 return true
             }

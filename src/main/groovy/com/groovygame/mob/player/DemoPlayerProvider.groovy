@@ -1,6 +1,7 @@
 package com.groovygame.mob.player
 
 import com.groovygame.animation.BlueExplosionAnimationProvider
+import com.groovygame.game.Service
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
 import com.groovygame.map.Map
@@ -11,10 +12,12 @@ import javax.imageio.ImageIO
 
 class DemoPlayerProvider implements PlayerProvider {
     Map map
+    Service service
 
     Player getPlayer() {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
         return new Player(
+                service: service,
                 map: map,
                 coords: new Coords(100, 100),
                 image: sprite.getImageAtCoords(new Coords(1, 2)),

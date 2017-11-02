@@ -5,7 +5,7 @@ import com.groovygame.util.UpdateTimer
 
 class Loop extends Observable {
     private int lastUpdateInMilliseconds = Time.getCurrentMilliseconds()
-    private UpdateTimer timer = new UpdateTimer(10)
+    private UpdateTimer timer = new UpdateTimer(1)
 
     void loop() {
         while (1) {
