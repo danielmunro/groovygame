@@ -28,12 +28,20 @@ class Service implements Observer {
     @Override
     void update(Observable o, Object arg) {
         def deltaInMilliseconds = (int) arg
-        updateExplosionAnimationTimer(deltaInMilliseconds)
-        updateProjectileAnimationTimer(deltaInMilliseconds)
+        addMilliseconds(deltaInMilliseconds)
+    }
+
+    void addMilliseconds(int milliseconds) {
+        updateExplosionAnimationTimer(milliseconds)
+        updateProjectileAnimationTimer(milliseconds)
     }
 
     void addProjectile(Projectile projectile) {
         projectiles << projectile
+    }
+
+    List<Projectile> getProjectiles() {
+        projectiles
     }
 
     def isMapBlocking(Rectangle rectangle) {
