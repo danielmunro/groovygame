@@ -26,12 +26,13 @@ class Patrol {
     }
 
     private void moveAccordingToNextCoords(Mob mob, Coords nextCoordsScaled) {
-        if (mob.getCoords() != nextCoordsScaled) {
-            mob.setCoords(getNextPath(mob.getCoords(), nextCoordsScaled))
-        } else {
+        if (mob.getCoords() == nextCoordsScaled) {
             incrementI()
             proceed(mob)
+            return
         }
+
+        mob.setCoords(getNextPath(mob.getCoords(), nextCoordsScaled))
     }
 
     private void incrementI() {
