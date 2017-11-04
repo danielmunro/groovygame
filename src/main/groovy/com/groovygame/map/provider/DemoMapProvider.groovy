@@ -1,5 +1,6 @@
 package com.groovygame.map.provider
 
+import com.groovygame.image.ImageProvider
 import com.groovygame.mob.Mob
 import com.groovygame.mob.Patrol
 import com.groovygame.pathfinding.LayerSearch
@@ -16,7 +17,9 @@ import javax.imageio.ImageIO
 class DemoMapProvider implements MapProvider {
     Map getMap() {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
+        def imageProvider = new ImageProvider(sprite: sprite)
         def mobSrcCoords = new Coords(7, 7)
+        def mobDestCoords = new Coords(3, 7)
         def blockingLayer = new Layer(
                 data: [
                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -53,13 +56,12 @@ class DemoMapProvider implements MapProvider {
             blocking: blockingLayer,
             mobs: [
                     new Mob(
-                            image: sprite.getImageAtCoords(Coords.at(0, 3)),
-                            coords: mobSrcCoords,
+                            image: imageProvider.getHeroImage(),
+                            coords: mobSrcCoords.scale(Constants.TILE_SIZE),
                             patrol: new Patrol(
-                                    path: new LayerSearch(blockingLayer).scaleAndFind(
-                                            (1/Constants.TILE_SIZE),
+                                    path: new LayerSearch(blockingLayer).find(
                                             mobSrcCoords,
-                                            Coords.at(3 * Constants.TILE_SIZE, 7 * Constants.TILE_SIZE)
+                                            mobDestCoords
                                     )
                             )
                     )

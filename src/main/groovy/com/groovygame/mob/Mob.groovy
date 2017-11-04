@@ -15,12 +15,10 @@ class Mob implements Observer {
     protected Direction direction = Direction.NONE
     protected Disposition disposition = Disposition.STANDING
     protected Projectile projectile
-    protected int cooldown
-    protected int currentCooldown
-    private Patrol patrol
     protected Service service
-    protected UpdateTimer moveUpdateTimer = new UpdateTimer(25)
-    protected UpdateTimer attackUpdateTimer = new UpdateTimer(5)
+    protected UpdateTimer moveUpdateTimer = new UpdateTimer(5)
+    protected UpdateTimer attackUpdateTimer = new UpdateTimer(1000)
+    private Patrol patrol
 
     void setService(Service service) {
         this.service = service
@@ -30,7 +28,9 @@ class Mob implements Observer {
     void update(Observable o, Object arg) {
         def deltaInMilliseconds = (int) arg
         moveUpdateTimer.poll(deltaInMilliseconds, { move() })
-        attackUpdateTimer.poll(deltaInMilliseconds, { attack() })
+        if (isAttacking()) {
+            attackUpdateTimer.poll(deltaInMilliseconds, { attack() })
+        }
     }
 
     void move() {
@@ -63,7 +63,9 @@ class Mob implements Observer {
     }
 
     void attack() {
-
+        if (isAttacking()) {
+            service.addProjectile(getNewProjectile())
+        }
     }
 
     def getImage() {
@@ -75,15 +77,7 @@ class Mob implements Observer {
     }
 
     def canAttack() {
-        currentCooldown < 1
-    }
-
-    void decrementCooldown() {
-        currentCooldown--
-    }
-
-    void resetCooldown() {
-        currentCooldown = cooldown
+        disposition == Disposition.ATTACKING
     }
 
     def getNewProjectile() {
@@ -93,6 +87,10 @@ class Mob implements Observer {
 
     def getHitBox() {
         new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE)
+    }
+
+    def isAttacking() {
+        disposition == Disposition.ATTACKING
     }
 
     void patrol() {

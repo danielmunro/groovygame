@@ -41,17 +41,6 @@ class Player extends Mob implements KeyListener {
         }
     }
 
-    @Override
-    void attack() {
-        if (isAttackKeyPressed()) {
-            decrementCooldown()
-            if (canAttack()) {
-                resetCooldown()
-                service.addProjectile(getNewProjectile())
-            }
-        }
-    }
-
     private void evaluateKeyReleased(int keyCode) {
         switch (keyCode) {
             case Constants.KEY_SPACE:
@@ -75,6 +64,16 @@ class Player extends Mob implements KeyListener {
         if (!keysPressed.contains(keyCode)) {
             keysPressed.add(keyCode)
         }
+    }
+
+    @Override
+    def canAttack() {
+        isAttacking()
+    }
+
+    @Override
+    def isAttacking() {
+        isAttackKeyPressed()
     }
 
     boolean isAttackKeyPressed() {

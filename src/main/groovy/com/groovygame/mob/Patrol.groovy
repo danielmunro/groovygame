@@ -4,6 +4,7 @@ import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 
 class Patrol {
+    private nextI = 1
     private List<Coords> path
     private boolean headingTowardDest = true
 
@@ -12,27 +13,50 @@ class Patrol {
     }
 
     def proceed(Mob mob) {
-        if (headingTowardDest) {
-            for (int i = 0; i < path.size() - 1; i++) {
-                if (path[i] == mob.getCoords().scale(Constants.TILE_SCALE)) {
-                    mob.setCoords(getNextPath(mob.getCoords(), i + 1))
-                    return
-                }
-            }
-            headingTowardDest = false
-            return
-        }
-        for (int i = path.size(); i > 0; i--) {
-            if (path[i] == mob.getCoords().scale(Constants.TILE_SCALE)) {
-                mob.setCoords(getNextPath(mob.getCoords(), i - 1))
-                return
-            }
-        }
-        headingTowardDest = true
+        determineDirection()
+        moveAccordingToNextCoords(mob, path[nextI].scale(Constants.TILE_SIZE))
     }
 
-    def getNextPath(Coords origin, int nextI) {
-        Coords nextCoords = path[nextI].scale(Constants.TILE_SIZE)
+    private void determineDirection() {
+        if (atEndOfPath()) {
+            headTowardSrc()
+        } else if (atBeginningOfPath()) {
+            headTowardDest()
+        }
+    }
+
+    private void moveAccordingToNextCoords(Mob mob, Coords nextCoordsScaled) {
+        if (mob.getCoords() != nextCoordsScaled) {
+            mob.setCoords(getNextPath(mob.getCoords(), nextCoordsScaled))
+        } else {
+            incrementI()
+            proceed(mob)
+        }
+    }
+
+    private void incrementI() {
+        nextI += headingTowardDest ? 1 : -1
+    }
+
+    private void headTowardSrc() {
+        headingTowardDest = false
+        incrementI()
+    }
+
+    private void headTowardDest() {
+        headingTowardDest = true
+        incrementI()
+    }
+
+    private atBeginningOfPath() {
+        !headingTowardDest && nextI == -1
+    }
+
+    private atEndOfPath() {
+        headingTowardDest && nextI >= path.size()
+    }
+
+    private static getNextPath(Coords origin, Coords nextCoords) {
         [
                 new Coords(origin.getX()-1, origin.getY()),
                 new Coords(origin.getX(), origin.getY()-1),
@@ -40,7 +64,7 @@ class Patrol {
                 new Coords(origin.getX(), origin.getY()+1),
         ]
         .sort{ Coords a, Coords b ->
-             nextCoords.distanceFrom(a) - nextCoords.distanceFrom(b)
+            nextCoords.distanceFrom(a) - nextCoords.distanceFrom(b)
         }
         .first()
     }

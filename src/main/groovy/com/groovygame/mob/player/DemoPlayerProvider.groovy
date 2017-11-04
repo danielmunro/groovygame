@@ -19,7 +19,6 @@ class DemoPlayerProvider implements PlayerProvider {
                 service: service,
                 coords: new Coords(100, 100),
                 image: sprite.getImageAtCoords(new Coords(1, 2)),
-                cooldown: 200,
                 projectile: new Projectile(
                         damage: 1,
                         speed: 2,

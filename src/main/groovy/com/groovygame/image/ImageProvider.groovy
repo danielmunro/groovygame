@@ -11,4 +11,8 @@ class ImageProvider {
     BufferedImage getProjectileImage() {
         sprite.getImageAtCoords(new Coords(238, 1284), 4, 1)
     }
+
+    BufferedImage getHeroImage() {
+        sprite.getImageAtCoords(new Coords(0, 3))
+    }
 }
