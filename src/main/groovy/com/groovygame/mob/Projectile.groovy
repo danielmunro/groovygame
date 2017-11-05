@@ -3,11 +3,12 @@ package com.groovygame.mob
 import com.groovygame.animation.Animation
 import com.groovygame.util.Direction
 import com.groovygame.util.Coords
+import com.groovygame.util.Hittable
 
 import java.awt.Rectangle
 import java.awt.image.BufferedImage
 
-class Projectile implements Cloneable {
+class Projectile implements Cloneable, Hittable {
     private Direction direction
     private BufferedImage image
     private int damage
@@ -21,16 +22,8 @@ class Projectile implements Cloneable {
         this.coords = coords
     }
 
-    int getSpeed() {
-        speed
-    }
-
-    int getDamage() {
-        damage
-    }
-
-    int getDecay() {
-        decay
+    boolean hasDecayed() {
+        decay <= 0
     }
 
     BufferedImage getImage() {

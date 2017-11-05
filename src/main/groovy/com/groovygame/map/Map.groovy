@@ -3,6 +3,7 @@ package com.groovygame.map
 import com.groovygame.util.Constants
 import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
+import com.groovygame.util.Hittable
 
 import java.awt.Graphics2D
 import java.awt.Rectangle
@@ -41,8 +42,8 @@ class Map {
         )
     }
 
-    boolean intersectsBlocking(Rectangle rectangle) {
-        findIntersectingMob(rectangle) || intersectsMapTile(rectangle)
+    boolean intersectsBlocking(Hittable hittable) {
+        findIntersectingMob(hittable.getHitBox()) || intersectsMapTile(hittable.getHitBox())
     }
 
     Mob findIntersectingMob(Rectangle rectangle) {

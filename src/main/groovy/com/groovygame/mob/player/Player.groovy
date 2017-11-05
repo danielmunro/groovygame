@@ -4,6 +4,9 @@ import com.groovygame.util.Constants
 import com.groovygame.mob.Disposition
 import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
+import com.groovygame.util.Coords
+import com.groovygame.util.Direction
+import com.groovygame.util.Hitbox
 import com.groovygame.util.UpdateTimer
 
 import java.awt.Graphics2D
@@ -102,5 +105,29 @@ class Player extends Mob implements KeyListener {
     @Override
     void keyPressed(KeyEvent e) {
         keyPressed(e.keyCode)
+    }
+
+    private void moveLeft() {
+        applyMove(new Coords(coords.getX() - 1, coords.getY()), Direction.LEFT)
+    }
+
+    private void moveRight() {
+        applyMove(new Coords(coords.getX() + 1, coords.getY()), Direction.RIGHT)
+    }
+
+    private void moveDown() {
+        applyMove(new Coords(coords.getX(), coords.getY() + 1), Direction.DOWN)
+    }
+
+    private void moveUp() {
+        applyMove(new Coords(coords.getX(), coords.getY() - 1), Direction.UP)
+    }
+
+    private void applyMove(Coords coords, Direction direction) {
+        if (service.isMapBlocking(new Hitbox(coords))) {
+            return
+        }
+        this.coords = coords
+        this.direction = direction
     }
 }

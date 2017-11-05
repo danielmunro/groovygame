@@ -3,6 +3,7 @@ package com.groovygame.game
 import com.groovygame.map.Map
 import com.groovygame.mob.Projectile
 import com.groovygame.animation.Animation
+import com.groovygame.util.Hittable
 import com.groovygame.util.UpdateTimer
 
 import javax.swing.JPanel
@@ -13,8 +14,10 @@ class Service implements Observer {
     private Map map
     private List<Projectile> projectiles = new ArrayList<Projectile>()
     private List<Animation> explosions = new ArrayList<Animation>()
-    private UpdateTimer explosionAnimationTimer = new UpdateTimer(24)
-    private UpdateTimer projectileAnimationTimer = new UpdateTimer(5)
+    private List<UpdateTimer> updateTimers = [
+            new UpdateTimer(24, { updateExplosions() }),
+            new UpdateTimer(5, { updateProjectiles() })
+    ]
 
     void draw(Graphics2D g2d, JPanel panel) {
         projectiles.each{
@@ -32,32 +35,23 @@ class Service implements Observer {
     }
 
     void addMilliseconds(int milliseconds) {
-        updateExplosionAnimationTimer(milliseconds)
-        updateProjectileAnimationTimer(milliseconds)
+        updateTimers.each{ it.poll(milliseconds) }
     }
 
     void addProjectile(Projectile projectile) {
         projectiles << projectile
     }
 
-    List<Projectile> getProjectiles() {
-        projectiles
+    int getProjectileCount() {
+        projectiles.size()
     }
 
-    def isMapBlocking(Rectangle rectangle) {
-        map.intersectsBlocking(rectangle)
+    def isMapBlocking(Hittable hittable) {
+        map.intersectsBlocking(hittable)
     }
 
-    private void updateProjectileAnimationTimer(int deltaInMilliseconds) {
-        projectileAnimationTimer.poll(deltaInMilliseconds, { projectiles = updateProjectiles() })
-    }
-
-    private void updateExplosionAnimationTimer(int deltaInMilliseconds) {
-        explosionAnimationTimer.poll(deltaInMilliseconds, { explosions = updateExplosions() })
-    }
-
-    private updateProjectiles() {
-        projectiles.findAll{
+    private void updateProjectiles() {
+        projectiles = projectiles.findAll{
             it.update()
             if (!isProjectileReadyToExplode(it)) {
                 return true
@@ -68,8 +62,8 @@ class Service implements Observer {
         }
     }
 
-    private List<Animation> updateExplosions() {
-         explosions.findAll{
+    private void updateExplosions() {
+         explosions = explosions.findAll{
             it.proceedAnimationFrame()
             !it.hasCompleted()
         }
@@ -83,6 +77,6 @@ class Service implements Observer {
     }
 
     private boolean isProjectileReadyToExplode(Projectile projectile) {
-        projectile.getDecay() <= 0 || map.intersectsBlocking(projectile.getHitBox())
+        projectile.hasDecayed() || map.intersectsBlocking(projectile)
     }
 }

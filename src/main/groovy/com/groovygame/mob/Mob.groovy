@@ -4,19 +4,20 @@ import com.groovygame.game.Service
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import com.groovygame.util.Direction
+import com.groovygame.util.Hittable
 import com.groovygame.util.UpdateTimer
 
 import java.awt.Rectangle
 import java.awt.image.BufferedImage
 
-class Mob implements Observer {
+class Mob implements Observer, Hittable {
     protected Coords coords
     protected BufferedImage image
     protected Direction direction = Direction.NONE
     protected Disposition disposition = Disposition.STANDING
     protected Projectile projectile
     protected Service service
-    protected UpdateTimer moveUpdateTimer = new UpdateTimer(5)
+    protected UpdateTimer moveUpdateTimer = new UpdateTimer(25)
     protected UpdateTimer attackUpdateTimer = new UpdateTimer(1000)
     private Patrol patrol
 
@@ -37,29 +38,6 @@ class Mob implements Observer {
         if (patrol) {
             patrol.proceed(this)
         }
-    }
-
-    void moveLeft() {
-        applyMove(new Coords(coords.getX() - 1, coords.getY()), Direction.LEFT)
-    }
-
-    void moveRight() {
-        applyMove(new Coords(coords.getX() + 1, coords.getY()), Direction.RIGHT)
-    }
-
-    void moveDown() {
-        applyMove(new Coords(coords.getX(), coords.getY() + 1), Direction.DOWN)
-    }
-
-    void moveUp() {
-        applyMove(new Coords(coords.getX(), coords.getY() - 1), Direction.UP)
-    }
-
-    private void applyMove(Coords coords, Direction direction) {
-        if (!service.isMapBlocking(new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE))) {
-            this.coords = coords
-        }
-        this.direction = direction
     }
 
     void attack() {
@@ -85,7 +63,7 @@ class Mob implements Observer {
         (Projectile) projectile.clone()
     }
 
-    def getHitBox() {
+    Rectangle getHitBox() {
         new Rectangle(coords.getX(), coords.getY(), Constants.TILE_SIZE, Constants.TILE_SIZE)
     }
 
