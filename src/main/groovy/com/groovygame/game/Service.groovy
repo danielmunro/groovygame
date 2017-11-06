@@ -8,7 +8,6 @@ import com.groovygame.util.UpdateTimer
 
 import javax.swing.JPanel
 import java.awt.Graphics2D
-import java.awt.Rectangle
 
 class Service implements Observer {
     private Map map
