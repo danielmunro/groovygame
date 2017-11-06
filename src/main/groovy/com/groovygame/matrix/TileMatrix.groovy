@@ -45,11 +45,11 @@ class TileMatrix {
         mapSize.getRandomMountainPeakCountForTopology(topology)
     }
 
-    Map findAllInMatrix(Closure c) {
+    def findAllInMatrix(Closure c) {
         matrix.getMatrix().findAll{
-            it.getValue().findAll{
-                if (c(it.getValue())) {
-                    it.getValue()
+            it.findAll{
+                if (c(it)) {
+                    it
                 }
             }
         }

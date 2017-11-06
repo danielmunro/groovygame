@@ -3,7 +3,7 @@ package com.groovygame.matrix
 import com.groovygame.util.Coords
 
 class Matrix {
-    def matrix = [:]
+    private def matrix = []
 
     Matrix(int width, int height) {
         buildMatrix(width, height, {null})
@@ -23,7 +23,7 @@ class Matrix {
 
     private void buildMatrix(int width, int height, Closure fill) {
         for (def y = 0; y < height; y++) {
-            matrix[y] = [:]
+            matrix[y] = []
             for (def x = 0; x < width; x++) {
                 matrix[y][x] = fill()
             }
