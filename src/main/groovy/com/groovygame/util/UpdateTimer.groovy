@@ -1,15 +1,13 @@
 package com.groovygame.util
 
-import java.util.concurrent.Callable
-
 class UpdateTimer {
     private int updateIntervalInMilliseconds
     private int millisecondsSinceLastUpdate
-    private Callable callable
+    private Closure closure
 
-    UpdateTimer(int updateIntervalInMilliseconds, Callable callable) {
+    UpdateTimer(int updateIntervalInMilliseconds, Closure closure) {
         this.updateIntervalInMilliseconds = updateIntervalInMilliseconds
-        this.callable = callable
+        this.closure = closure
     }
 
     UpdateTimer(int updateIntervalInMilliseconds) {
@@ -29,10 +27,10 @@ class UpdateTimer {
         millisecondsSinceLastUpdate = 0
     }
 
-    void poll(int deltaInMilliseconds, Callable callable) {
+    void poll(int deltaInMilliseconds, Closure closure) {
         addMilliseconds(deltaInMilliseconds)
         if (isReadyForUpdate()) {
-            callable()
+            closure()
             resetUpdateCounter()
         }
     }
@@ -40,7 +38,7 @@ class UpdateTimer {
     void poll(int deltaInMilliseconds) {
         addMilliseconds(deltaInMilliseconds)
         if (isReadyForUpdate()) {
-            callable()
+            closure()
             resetUpdateCounter()
         }
     }
