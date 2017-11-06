@@ -9,9 +9,11 @@ import static org.mockito.Mockito.*
 
 class PlayerSpec extends Specification {
     Player player
+    Service service
 
     def setup() {
-        player = new DemoPlayerProvider(service: new Service(map: mock(Map.class))).getPlayer()
+        service = new Service(map: mock(Map.class))
+        player = new DemoPlayerProvider(service: service).getPlayer()
     }
 
     def "should be able to move character down the screen"() {
@@ -19,7 +21,9 @@ class PlayerSpec extends Specification {
         def initialCoords = player.getCoords()
 
         when:
-        player.moveDown()
+        player.keyPressed(Constants.KEY_DOWN)
+        player.move()
+        player.keyReleased(Constants.KEY_DOWN)
 
         then:
         player.getCoords() != initialCoords
@@ -88,5 +92,16 @@ class PlayerSpec extends Specification {
         then:
         player.keysPressed().size() == 0
         !player.isKeyPressed(Constants.KEY_SPACE)
+    }
+
+    def "a player should be able to shoot a projectile by hitting the attack key"() {
+        expect:
+        service.getProjectileCount() == 0
+
+        when:
+        player.keyPressed(Constants.KEY_ATTACK)
+
+        then:
+        service.getProjectileCount() == 1
     }
 }

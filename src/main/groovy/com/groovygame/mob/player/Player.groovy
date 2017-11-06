@@ -66,6 +66,9 @@ class Player extends Mob implements KeyListener {
     void keyPressed(int keyCode) {
         if (!keysPressed.contains(keyCode)) {
             keysPressed.add(keyCode)
+            if (keyCode == Constants.KEY_ATTACK) {
+                attack()
+            }
         }
     }
 
