@@ -16,7 +16,7 @@ class Map {
     private List<Mob> mobs = new ArrayList<Mob>()
 
     private static void drawLayer(Layer layer, Graphics2D graphics2D, Board board) {
-        layer.getData().eachWithIndex{ int[] row, int y ->
+        layer.getData().eachWithIndex{ def row, int y ->
             row.eachWithIndex{ int i, int x ->
                 if (i > 0) {
                     drawTile(
@@ -62,8 +62,8 @@ class Map {
 
     private boolean intersectsMapTile(Rectangle rectangle) {
         def data = blocking.getData()
-        for (int y = 0; y < data.length; y++) {
-            for (int x = 0; x < data[y].length; x++) {
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data[y].size(); x++) {
                 if (data[y][x] && rectangle.intersects(new Rectangle(x * Constants.TILE_SIZE, y * Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE))) {
                     return true
                 }

@@ -7,10 +7,10 @@ import java.awt.image.BufferedImage
 
 @Immutable
 class Layer {
-    private int[][] data
-    private BufferedImage[] tiles
+    private def data = []
+    private BufferedImage[] tiles = []
 
-    int[][] getData() {
+    def getData() {
         data
     }
 
@@ -23,7 +23,7 @@ class Layer {
     }
 
     int height() {
-        data.length
+        data.size()
     }
 
     boolean areCoordsWalkable(Coords coords) {
