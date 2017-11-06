@@ -17,18 +17,14 @@ class Map {
     private List<Mob> mobs = new ArrayList<Mob>()
 
     private static void drawLayer(Layer layer, Graphics2D graphics2D, Board board) {
-        layer.getData().eachWithIndex{ def row, int y ->
-            row.eachWithIndex{ int i, int x ->
-                if (i > 0) {
-                    drawTile(
-                            layer.getTileAtCoords(new Coords(x, y)),
-                            x * Constants.TILE_SIZE,
-                            y * Constants.TILE_SIZE,
-                            graphics2D,
-                            board
-                    )
-                }
-            }
+        layer.forEachTile {
+            drawTile(
+                    layer.getTileAtCoords(it),
+                    it.getX() * Constants.TILE_SIZE,
+                    it.getY() * Constants.TILE_SIZE,
+                    graphics2D,
+                    board
+            )
         }
     }
 

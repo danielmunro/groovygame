@@ -15,6 +15,16 @@ class Layer {
         data
     }
 
+    void forEachTile(Closure closure) {
+        data.eachWithIndex { def row, int y ->
+            row.eachWithIndex { int i, int x ->
+                if (i > 0) {
+                    closure(new Coords(x, y))
+                }
+            }
+        }
+    }
+
     BufferedImage getTileAtCoords(Coords coords) {
         if (!coordsInBounds(coords)) {
             throw new InvalidArgumentException('coordinates must be in bounds')
