@@ -3,6 +3,7 @@ package com.groovygame.map
 import com.groovygame.util.Constants
 import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
+import com.groovygame.util.Coords
 import com.groovygame.util.Hittable
 
 import java.awt.Graphics2D
@@ -20,7 +21,7 @@ class Map {
             row.eachWithIndex{ int i, int x ->
                 if (i > 0) {
                     drawTile(
-                            layer.getTileFromIndex(i-1),
+                            layer.getTileAtCoords(new Coords(x, y)),
                             x * Constants.TILE_SIZE,
                             y * Constants.TILE_SIZE,
                             graphics2D,

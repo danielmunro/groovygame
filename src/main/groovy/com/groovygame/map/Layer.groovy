@@ -1,6 +1,7 @@
 package com.groovygame.map
 
 import com.groovygame.util.Coords
+import com.sun.javaws.exceptions.InvalidArgumentException
 import groovy.transform.Immutable
 
 import java.awt.image.BufferedImage
@@ -14,8 +15,12 @@ class Layer {
         data
     }
 
-    BufferedImage getTileFromIndex(int i) {
-        tiles[i]
+    BufferedImage getTileAtCoords(Coords coords) {
+        if (!coordsInBounds(coords)) {
+            throw new InvalidArgumentException('coordinates must be in bounds')
+        }
+
+        tiles[data[coords.getY()][coords.getX()]-1]
     }
 
     int width() {
