@@ -3,7 +3,6 @@ package com.groovygame.mob
 import com.groovygame.game.Service
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords
-import com.groovygame.util.Direction
 import com.groovygame.util.Hittable
 import com.groovygame.util.UpdateTimer
 

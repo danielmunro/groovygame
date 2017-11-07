@@ -5,7 +5,7 @@ import com.groovygame.mob.Disposition
 import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
 import com.groovygame.util.Coords
-import com.groovygame.util.Direction
+import com.groovygame.mob.Direction
 import com.groovygame.util.Hitbox
 import com.groovygame.util.UpdateTimer
 

@@ -4,7 +4,7 @@ import com.groovygame.animation.BlueExplosionAnimationProvider
 import com.groovygame.game.Service
 import com.groovygame.image.ImageProvider
 import com.groovygame.util.Coords
-import com.groovygame.util.Direction
+import com.groovygame.mob.Direction
 import com.groovygame.mob.Projectile
 import com.groovygame.ui.Sprite
 

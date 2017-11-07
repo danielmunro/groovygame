@@ -1,7 +1,6 @@
 package com.groovygame.mob
 
 import com.groovygame.animation.Animation
-import com.groovygame.util.Direction
 import com.groovygame.util.Coords
 import com.groovygame.util.Hittable
 
