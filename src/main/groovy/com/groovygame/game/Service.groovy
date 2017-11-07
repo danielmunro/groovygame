@@ -14,8 +14,8 @@ class Service implements Observer {
     private List<Projectile> projectiles = new ArrayList<Projectile>()
     private List<Animation> explosions = new ArrayList<Animation>()
     private List<UpdateTimer> updateTimers = [
-            new UpdateTimer(24, { updateExplosions() }),
-            new UpdateTimer(5, { updateProjectiles() })
+            new UpdateTimer(updateIntervalInMilliseconds: 24, closure: { updateExplosions() }),
+            new UpdateTimer(updateIntervalInMilliseconds: 5, closure: { updateProjectiles() })
     ]
 
     void draw(Graphics2D g2d, JPanel panel) {

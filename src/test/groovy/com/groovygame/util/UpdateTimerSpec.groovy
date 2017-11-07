@@ -5,8 +5,7 @@ import spock.lang.Specification
 class UpdateTimerSpec extends Specification {
     def "update timer updates every millisecond"() {
         setup:
-        def incrementor = 1
-        def updateTimer = new UpdateTimer(1)
+        def updateTimer = new UpdateTimer(updateIntervalInMilliseconds: 1)
 
         expect:
         !updateTimer.isReadyForUpdate()

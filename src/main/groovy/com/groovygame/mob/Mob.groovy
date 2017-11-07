@@ -17,8 +17,8 @@ class Mob implements Observer, Hittable {
     protected Disposition disposition = Disposition.STANDING
     protected Projectile projectile
     protected Service service
-    protected UpdateTimer moveUpdateTimer = new UpdateTimer(25)
-    protected UpdateTimer attackUpdateTimer = new UpdateTimer(1000)
+    protected UpdateTimer moveUpdateTimer = new UpdateTimer(updateIntervalInMilliseconds: 25)
+    protected UpdateTimer attackUpdateTimer = new UpdateTimer(updateIntervalInMilliseconds: 1000)
     private Patrol patrol
 
     void setService(Service service) {

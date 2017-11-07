@@ -15,7 +15,7 @@ import java.awt.event.KeyListener
 
 class Player extends Mob implements KeyListener {
     private keysPressed = []
-    protected UpdateTimer moveUpdateTimer = new UpdateTimer(5)
+    protected UpdateTimer moveUpdateTimer = new UpdateTimer(updateIntervalInMilliseconds: 5)
 
     @Override
     void update(Observable o, Object arg) {

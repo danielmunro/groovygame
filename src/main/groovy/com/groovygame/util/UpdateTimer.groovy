@@ -5,16 +5,6 @@ class UpdateTimer {
     private int millisecondsSinceLastUpdate
     private Closure closure
 
-    UpdateTimer(int updateIntervalInMilliseconds, Closure closure) {
-        this.updateIntervalInMilliseconds = updateIntervalInMilliseconds
-        this.closure = closure
-    }
-
-    UpdateTimer(int updateIntervalInMilliseconds) {
-        this.updateIntervalInMilliseconds = updateIntervalInMilliseconds
-        millisecondsSinceLastUpdate = 0
-    }
-
     void addMilliseconds(int deltaInMilliseconds) {
         millisecondsSinceLastUpdate += deltaInMilliseconds
     }
