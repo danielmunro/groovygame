@@ -2,6 +2,7 @@ package com.groovygame.map
 
 import com.groovygame.util.Coords
 import com.sun.javaws.exceptions.InvalidArgumentException
+
 import groovy.transform.Immutable
 
 import java.awt.image.BufferedImage
@@ -10,10 +11,6 @@ import java.awt.image.BufferedImage
 class Layer {
     private def data = []
     private BufferedImage[] tiles = []
-
-    def getData() {
-        data
-    }
 
     void forEachTile(Closure closure) {
         data.eachWithIndex { def row, int y ->

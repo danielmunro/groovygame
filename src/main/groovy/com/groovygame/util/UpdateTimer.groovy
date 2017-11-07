@@ -28,14 +28,14 @@ class UpdateTimer {
     }
 
     void poll(int deltaInMilliseconds, Closure closure) {
-        addMilliseconds(deltaInMilliseconds)
-        if (isReadyForUpdate()) {
-            closure()
-            resetUpdateCounter()
-        }
+        doPoll(deltaInMilliseconds, closure)
     }
 
     void poll(int deltaInMilliseconds) {
+        doPoll(deltaInMilliseconds, closure)
+    }
+
+    void doPoll(int deltaInMilliseconds, Closure closure) {
         addMilliseconds(deltaInMilliseconds)
         if (isReadyForUpdate()) {
             closure()
