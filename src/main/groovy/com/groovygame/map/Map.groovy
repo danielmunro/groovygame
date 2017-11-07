@@ -40,7 +40,7 @@ class Map {
     }
 
     boolean intersectsBlocking(Hittable hittable) {
-        findIntersectingMob(hittable.getHitBox()) || intersectsMapTile(hittable.getHitBox())
+        findIntersectingMob(hittable.getHitBox()) || intersectsMapBlockingData(hittable.getHitBox())
     }
 
     Mob findIntersectingMob(Rectangle rectangle) {
@@ -57,17 +57,17 @@ class Map {
         (ArrayList<Mob>) mobs.clone()
     }
 
-    private boolean intersectsMapTile(Rectangle rectangle) {
-        def data = blocking.getData()
-        for (int y = 0; y < data.size(); y++) {
-            for (int x = 0; x < data[y].size(); x++) {
-                if (data[y][x] && rectangle.intersects(new Rectangle(x * Constants.TILE_SIZE, y * Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE))) {
-                    return true
-                }
-            }
+    private def intersectsMapBlockingData(Rectangle rectangle) {
+        blocking.find{ Coords c, int i ->
+            i && rectangle.intersects(
+                    new Rectangle(
+                            c.getX() * Constants.TILE_SIZE,
+                            c.getY() * Constants.TILE_SIZE,
+                            Constants.TILE_SIZE,
+                            Constants.TILE_SIZE
+                    )
+            )
         }
-
-        false
     }
 
     void draw(Graphics2D graphics2D, Board board) {

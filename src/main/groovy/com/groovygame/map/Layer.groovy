@@ -25,6 +25,16 @@ class Layer {
         }
     }
 
+    def find(Closure closure) {
+        for (int y = 0; y < height(); y++) {
+            for (int x = 0; x < width(); x++) {
+                if (closure(new Coords(x, y), data[y][x])) {
+                    return true
+                }
+            }
+        }
+    }
+
     BufferedImage getTileAtCoords(Coords coords) {
         if (!coordsInBounds(coords)) {
             throw new InvalidArgumentException('coordinates must be in bounds')
