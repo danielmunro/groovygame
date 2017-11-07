@@ -6,7 +6,7 @@ import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
 import com.groovygame.util.Coords
 import com.groovygame.mob.Direction
-import com.groovygame.util.Hitbox
+import com.groovygame.mob.Hitbox
 import com.groovygame.util.UpdateTimer
 
 import java.awt.Graphics2D

@@ -1,4 +1,8 @@
-package com.groovygame.util
+package com.groovygame.mob
+
+import com.groovygame.util.Constants
+import com.groovygame.util.Coords
+import com.groovygame.util.Hittable
 
 import java.awt.Rectangle
 
