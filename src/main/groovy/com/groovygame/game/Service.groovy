@@ -1,6 +1,6 @@
 package com.groovygame.game
 
-import com.groovygame.map.Map
+import com.groovygame.area.room.Map
 import com.groovygame.mob.Projectile
 import com.groovygame.animation.Animation
 import com.groovygame.util.Hittable

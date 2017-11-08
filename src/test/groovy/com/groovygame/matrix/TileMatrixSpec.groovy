@@ -1,6 +1,6 @@
 package com.groovygame.matrix
 
-import com.groovygame.map.topology.MountainousMapTopology
+import com.groovygame.area.room.topology.MountainousMapTopology
 import spock.lang.Specification
 
 class TileMatrixSpec extends Specification {

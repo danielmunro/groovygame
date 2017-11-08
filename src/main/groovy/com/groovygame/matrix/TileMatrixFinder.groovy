@@ -1,6 +1,6 @@
 package com.groovygame.matrix
 
-import com.groovygame.map.tile.Terrain
+import com.groovygame.area.room.tile.Terrain
 import groovy.transform.Immutable
 
 @Immutable

@@ -1,6 +1,6 @@
-package com.groovygame.map.size
+package com.groovygame.area.room.size
 
-import com.groovygame.map.topology.MapTopology
+import com.groovygame.area.room.topology.MapTopology
 import com.groovygame.util.Random
 
 class SmallMapSize implements MapSize {

@@ -1,17 +1,14 @@
 package com.groovygame.game
 
 import com.groovygame.image.ImageProvider
-import com.groovygame.map.Layer
-import com.groovygame.map.Map
+import com.groovygame.area.room.Layer
+import com.groovygame.area.room.Map
 import com.groovygame.mob.Projectile
 import com.groovygame.ui.Sprite
-import com.groovygame.util.Constants
 import com.groovygame.util.Coords
-import com.groovygame.util.Hittable
 import spock.lang.Specification
 
 import javax.imageio.ImageIO
-import java.awt.Rectangle
 
 class ServiceSpec extends Specification {
     def "added projectiles decay"() {

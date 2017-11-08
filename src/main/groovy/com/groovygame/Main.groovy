@@ -2,18 +2,15 @@ package com.groovygame
 
 import com.groovygame.game.Loop
 import com.groovygame.game.Service
-import com.groovygame.map.Map
-import com.groovygame.map.provider.DemoMapProvider
-import com.groovygame.map.provider.MapProvider
+import com.groovygame.area.room.provider.DemoMapProvider
+import com.groovygame.area.room.provider.MapProvider
 import com.groovygame.mob.Mob
 import com.groovygame.mob.player.DemoPlayerProvider
 import com.groovygame.mob.player.Player
 import com.groovygame.mob.player.PlayerProvider
 import com.groovygame.ui.Board
 import com.groovygame.ui.Frame
-import com.groovygame.ui.Sprite
 
-import javax.imageio.ImageIO
 import java.awt.EventQueue
 
 class Main {

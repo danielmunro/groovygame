@@ -1,8 +1,7 @@
 package com.groovygame.pathfinding
 
-import com.groovygame.map.Layer
-import com.groovygame.map.exception.ImpossiblePathException
-import com.groovygame.pathfinding.LayerSearch
+import com.groovygame.area.room.Layer
+import com.groovygame.area.room.exception.ImpossiblePathException
 import com.groovygame.util.Coords
 import spock.lang.Specification
 

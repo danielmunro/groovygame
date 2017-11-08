@@ -1,0 +1,15 @@
+Index: src/main/groovy/com/groovygame/Main.groovy
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/groovy/com/groovygame/Main.groovy	(revision )
++++ src/main/groovy/com/groovygame/Main.groovy	(revision )
+@@ -23,7 +23,6 @@
+         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
+         initFrame(board, player)
+         def service = new Service(player: player, board: board, map: map, sprites: sprite)
+-        service.addObserver(player)
+ 
+         new Loop(service: service).loop()
+     }

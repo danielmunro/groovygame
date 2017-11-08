@@ -1,6 +1,6 @@
-package com.groovygame.map.topology
+package com.groovygame.area.room.topology
 
-import com.groovygame.map.tile.Terrain
+import com.groovygame.area.room.tile.Terrain
 import groovy.transform.Immutable
 
 @Immutable

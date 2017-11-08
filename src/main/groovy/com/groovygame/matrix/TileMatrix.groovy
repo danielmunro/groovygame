@@ -1,12 +1,12 @@
 package com.groovygame.matrix
 
-import com.groovygame.map.tile.Climate
+import com.groovygame.area.room.tile.Climate
 
-import com.groovygame.map.tile.ResourceLevel
-import com.groovygame.map.tile.Terrain
-import com.groovygame.map.tile.Tile
-import com.groovygame.map.topology.MapTopology
-import com.groovygame.map.size.MapSize
+import com.groovygame.area.room.tile.ResourceLevel
+import com.groovygame.area.room.tile.Terrain
+import com.groovygame.area.room.tile.Tile
+import com.groovygame.area.room.topology.MapTopology
+import com.groovygame.area.room.size.MapSize
 import com.groovygame.util.Coords
 
 class TileMatrix {

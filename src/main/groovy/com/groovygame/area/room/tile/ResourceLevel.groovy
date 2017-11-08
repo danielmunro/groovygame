@@ -1,4 +1,4 @@
-package com.groovygame.map.tile
+package com.groovygame.area.room.tile
 
 enum ResourceLevel {
     LOW, MEDIUM, HIGH

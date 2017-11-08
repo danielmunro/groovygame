@@ -1,7 +1,6 @@
-package com.groovygame.map
+package com.groovygame.area.room
 
 import com.groovygame.game.Service
-import com.groovygame.mob.player.DemoPlayerProvider
 import com.groovygame.mob.player.Player
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords

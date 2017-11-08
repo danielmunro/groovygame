@@ -1,4 +1,4 @@
-package com.groovygame.map.exception
+package com.groovygame.area.room.exception
 
 class ImpossiblePathException extends Exception {
 }

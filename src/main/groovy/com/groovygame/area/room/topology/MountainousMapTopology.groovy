@@ -1,4 +1,4 @@
-package com.groovygame.map.topology
+package com.groovygame.area.room.topology
 
 import groovy.transform.Immutable
 

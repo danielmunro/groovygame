@@ -1,6 +1,6 @@
 package com.groovygame.mob
 
-import com.groovygame.map.provider.DemoMapProvider
+import com.groovygame.area.room.provider.DemoMapProvider
 import com.groovygame.util.Constants
 import spock.lang.Specification
 

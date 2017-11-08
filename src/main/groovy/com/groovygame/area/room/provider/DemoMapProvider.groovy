@@ -1,4 +1,4 @@
-package com.groovygame.map.provider
+package com.groovygame.area.room.provider
 
 import com.groovygame.image.ImageProvider
 import com.groovygame.mob.Mob
@@ -6,8 +6,8 @@ import com.groovygame.mob.Patrol
 import com.groovygame.pathfinding.LayerSearch
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords
-import com.groovygame.map.Layer
-import com.groovygame.map.Map
+import com.groovygame.area.room.Layer
+import com.groovygame.area.room.Map
 import com.groovygame.ui.Sprite
 import groovy.transform.Immutable
 

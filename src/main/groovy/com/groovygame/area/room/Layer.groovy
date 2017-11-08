@@ -1,4 +1,4 @@
-package com.groovygame.map
+package com.groovygame.area.room
 
 import com.groovygame.util.Coords
 import com.sun.javaws.exceptions.InvalidArgumentException

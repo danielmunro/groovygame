@@ -2,7 +2,7 @@ package com.groovygame.mob.player
 
 import com.groovygame.game.Service
 import com.groovygame.util.Constants
-import com.groovygame.map.Map
+import com.groovygame.area.room.Map
 import spock.lang.Specification
 
 import static org.mockito.Mockito.*
@@ -43,20 +43,18 @@ class PlayerSpec extends Specification {
         player.getCoords() == initialCoords
     }
 
-    def "space bar should cause the character to attack"() {
+    def "releasing space bar causes the character to stop attacking"() {
+        expect:
+        !player.isAttackKeyPressed()
+
         when:
-        player.keyPressed(Constants.KEY_SPACE)
+        player.keyPressed(Constants.KEY_ATTACK)
 
         then:
         player.isAttackKeyPressed()
-    }
-
-    def "releasing space bar causes the character to stop attacking"() {
-        setup:
-        player.keyPressed(Constants.KEY_SPACE)
 
         when:
-        player.keyReleased(Constants.KEY_SPACE)
+        player.keyReleased(Constants.KEY_ATTACK)
 
         then:
         !player.isAttackKeyPressed()

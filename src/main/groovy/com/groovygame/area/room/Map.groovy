@@ -1,4 +1,4 @@
-package com.groovygame.map
+package com.groovygame.area.room
 
 import com.groovygame.util.Constants
 import com.groovygame.mob.Mob
@@ -51,6 +51,10 @@ class Map {
 
     void removeMob(Mob mob) {
         mobs.remove(mob)
+    }
+
+    void addMob(Mob mob) {
+        mobs.add(mob)
     }
 
     List<Mob> getMobs() {
