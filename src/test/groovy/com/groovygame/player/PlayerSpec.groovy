@@ -1,4 +1,4 @@
-package com.groovygame.mob.player
+package com.groovygame.player
 
 import com.groovygame.game.Service
 import com.groovygame.util.Constants
@@ -58,14 +58,6 @@ class PlayerSpec extends Specification {
 
         then:
         !player.isAttackKeyPressed()
-    }
-
-    def "a player should be able to create identical projectile copies"() {
-        when:
-        def projectile = player.getNewProjectile()
-
-        then:
-        projectile == player.getNewProjectile()
     }
 
     def "a player should only be able to add unique key values once"() {

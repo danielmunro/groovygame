@@ -2,7 +2,7 @@ package com.groovygame.ui
 
 import com.groovygame.game.Service
 import com.groovygame.area.room.Map
-import com.groovygame.mob.player.Player
+import com.groovygame.player.Player
 
 import javax.swing.JPanel
 import java.awt.Graphics

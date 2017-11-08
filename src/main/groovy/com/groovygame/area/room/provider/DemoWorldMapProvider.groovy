@@ -1,8 +1,11 @@
 package com.groovygame.area.room.provider
 
+import com.groovygame.animation.BlueExplosionAnimationProvider
 import com.groovygame.image.ImageProvider
+import com.groovygame.mob.Direction
 import com.groovygame.mob.Mob
 import com.groovygame.mob.Patrol
+import com.groovygame.mob.Projectile
 import com.groovygame.pathfinding.LayerSearch
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords
@@ -91,6 +94,15 @@ class DemoWorldMapProvider implements MapProvider {
                                             mobSrcCoords,
                                             mobDestCoords
                                     )
+                            ),
+                            projectile: new Projectile(
+                                    damage: 1,
+                                    speed: 2,
+                                    decay: 50,
+                                    direction: Direction.RIGHT,
+                                    coords: new Coords(100, 100),
+                                    image: new ImageProvider(sprite: sprite).getProjectileImage(),
+                                    explosionImages: new BlueExplosionAnimationProvider(sprite).getAnimationFrames()
                             )
                     )
             ]

@@ -5,9 +5,9 @@ import com.groovygame.game.Service
 import com.groovygame.area.room.provider.DemoWorldMapProvider
 import com.groovygame.area.room.provider.MapProvider
 import com.groovygame.mob.Mob
-import com.groovygame.mob.player.DemoPlayerProvider
-import com.groovygame.mob.player.Player
-import com.groovygame.mob.player.PlayerProvider
+import com.groovygame.player.DemoPlayerProvider
+import com.groovygame.player.Player
+import com.groovygame.player.PlayerProvider
 import com.groovygame.ui.Board
 import com.groovygame.ui.Frame
 

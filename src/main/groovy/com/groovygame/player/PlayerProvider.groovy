@@ -1,4 +1,4 @@
-package com.groovygame.mob.player
+package com.groovygame.player
 
 interface PlayerProvider {
     Player getPlayer()

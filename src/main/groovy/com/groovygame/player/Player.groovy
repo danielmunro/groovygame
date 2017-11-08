@@ -1,30 +1,29 @@
-package com.groovygame.mob.player
+package com.groovygame.player
 
 import com.groovygame.util.Constants
-import com.groovygame.mob.Disposition
 import com.groovygame.mob.Mob
 import com.groovygame.ui.Board
 import com.groovygame.util.Coords
 import com.groovygame.mob.Direction
-import com.groovygame.mob.Hitbox
 import com.groovygame.util.UpdateTimer
 
 import java.awt.Graphics2D
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 
-class Player extends Mob implements KeyListener {
+class Player implements Observer, KeyListener {
     private keysPressed = []
-    protected UpdateTimer moveUpdateTimer = new UpdateTimer(updateIntervalInMilliseconds: 5)
+    private Mob mob
+    private UpdateTimer moveUpdateTimer = new UpdateTimer(updateIntervalInMilliseconds: 5)
+    private UpdateTimer attackUpdateTimer = new UpdateTimer(updateIntervalInMilliseconds: 1000)
 
     @Override
     void update(Observable o, Object arg) {
         def deltaInMilliseconds = (int) arg
         moveUpdateTimer.poll(deltaInMilliseconds, { move() })
-        attackUpdateTimer.poll(deltaInMilliseconds, { attack() })
+        attackUpdateTimer.poll(deltaInMilliseconds, { mob.pollAttack() })
     }
 
-    @Override
     void move() {
         keysPressed.clone().each {
             switch (it) {
@@ -47,13 +46,13 @@ class Player extends Mob implements KeyListener {
     private void evaluateKeyReleased(int keyCode) {
         switch (keyCode) {
             case Constants.KEY_SPACE:
-                disposition = Disposition.STANDING
+                mob.resetDispositionToStanding()
                 break
         }
     }
 
     void draw(Graphics2D graphics2D, Board board) {
-        graphics2D.drawImage(image, coords.getX(), coords.getY(), board)
+        graphics2D.drawImage(mob.getImage(), mob.getCoords().getX(), mob.getCoords().getY(), board)
     }
 
     void keyReleased(int keyCode) {
@@ -67,19 +66,10 @@ class Player extends Mob implements KeyListener {
         if (!keysPressed.contains(keyCode)) {
             keysPressed.add(keyCode)
             if (keyCode == Constants.KEY_ATTACK) {
-                attack()
+                mob.setDispositionToAttacking()
+                mob.attack()
             }
         }
-    }
-
-    @Override
-    def canAttack() {
-        isAttacking()
-    }
-
-    @Override
-    def isAttacking() {
-        isAttackKeyPressed()
     }
 
     boolean isAttackKeyPressed() {
@@ -94,6 +84,10 @@ class Player extends Mob implements KeyListener {
 
     List keysPressed() {
         keysPressed
+    }
+
+    Coords getCoords() {
+        mob.getCoords()
     }
 
     @Override
@@ -111,26 +105,18 @@ class Player extends Mob implements KeyListener {
     }
 
     private void moveLeft() {
-        applyMove(new Coords(coords.getX() - 1, coords.getY()), Direction.LEFT)
+        mob.moveTo(new Coords(mob.getCoords().getX() - 1, mob.getCoords().getY()), Direction.LEFT)
     }
 
     private void moveRight() {
-        applyMove(new Coords(coords.getX() + 1, coords.getY()), Direction.RIGHT)
+        mob.moveTo(new Coords(mob.getCoords().getX() + 1, mob.getCoords().getY()), Direction.RIGHT)
     }
 
     private void moveDown() {
-        applyMove(new Coords(coords.getX(), coords.getY() + 1), Direction.DOWN)
+        mob.moveTo(new Coords(mob.getCoords().getX(), mob.getCoords().getY() + 1), Direction.DOWN)
     }
 
     private void moveUp() {
-        applyMove(new Coords(coords.getX(), coords.getY() - 1), Direction.UP)
-    }
-
-    private void applyMove(Coords coords, Direction direction) {
-        if (service.isMapBlocking(new Hitbox(coords))) {
-            return
-        }
-        this.coords = coords
-        this.direction = direction
+        mob.moveTo(new Coords(mob.getCoords().getX(), mob.getCoords().getY() - 1), Direction.UP)
     }
 }

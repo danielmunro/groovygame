@@ -5,12 +5,11 @@ import com.groovygame.util.Constants
 import spock.lang.Specification
 
 class MobSpec extends Specification {
-    def "a patrolling mob follows its path from source to destination, then back again"() {
-        setup:
-        def map = new DemoWorldMapProvider().getMap()
-        def mob = map.getMobs().first()
-        def path = mob.getPatrolPath()
+    def map = new DemoWorldMapProvider().getMap()
+    def mob = map.getMobs().first()
+    def path = mob.getPatrolPath()
 
+    def "a patrolling mob follows its path from source to destination, then back again"() {
         expect:
         mob.getCoords().scale(Constants.TILE_SCALE) == path[0]
 
@@ -29,5 +28,13 @@ class MobSpec extends Specification {
             then:
             mob.getCoords().scale(Constants.TILE_SCALE) == path[i-1]
         }
+    }
+
+    def "a mob should be able to create identical projectile copies"() {
+        when:
+        def projectile = mob.getNewProjectile()
+
+        then:
+        projectile == mob.getNewProjectile()
     }
 }

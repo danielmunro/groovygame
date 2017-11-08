@@ -1,13 +1,14 @@
 package com.groovygame.area.room
 
 import com.groovygame.game.Service
-import com.groovygame.mob.player.Player
+import com.groovygame.mob.Direction
+import com.groovygame.mob.Mob
 import com.groovygame.util.Constants
 import com.groovygame.util.Coords
 import spock.lang.Specification
 
 class MapSpec extends Specification {
-    def "blocking data blocks player movement"() {
+    def "blocking data blocks mob movement"() {
         setup:
         def map = new Map(
                 blocking:
@@ -21,15 +22,15 @@ class MapSpec extends Specification {
         )
         def service = new Service(map: map)
         def startCoords = Coords.at(Constants.TILE_SIZE, Constants.TILE_SIZE)
-        def player = new Player(
+        def mob = new Mob(
                 coords: startCoords,
                 service: service
         )
 
         when:
-        player.moveRight()
+        mob.moveTo(new Coords(mob.getCoords().getX()+1, mob.getCoords().getY()), Direction.RIGHT)
 
         then:
-        player.getCoords() == startCoords
+        mob.getCoords() == startCoords
     }
 }

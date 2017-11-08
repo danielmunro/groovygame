@@ -28,9 +28,7 @@ class Mob implements Observer, Hittable {
     void update(Observable o, Object arg) {
         def deltaInMilliseconds = (int) arg
         moveUpdateTimer.poll(deltaInMilliseconds, { move() })
-        if (isAttacking()) {
-            attackUpdateTimer.poll(deltaInMilliseconds, { attack() })
-        }
+        attackUpdateTimer.poll(deltaInMilliseconds, { pollAttack() })
     }
 
     void move() {
@@ -39,10 +37,22 @@ class Mob implements Observer, Hittable {
         }
     }
 
-    void attack() {
+    void pollAttack() {
         if (isAttacking()) {
-            service.addProjectile(getNewProjectile())
+            attack()
         }
+    }
+
+    void attack() {
+        service.addProjectile(getNewProjectile())
+    }
+
+    void resetDispositionToStanding() {
+        disposition = Disposition.STANDING
+    }
+
+    void setDispositionToAttacking() {
+        disposition = Disposition.ATTACKING
     }
 
     def getImage() {
@@ -80,5 +90,13 @@ class Mob implements Observer, Hittable {
 
     void setCoords(Coords coords) {
         this.coords = coords
+    }
+
+    void moveTo(Coords coords, Direction direction) {
+        if (service.isMapBlocking(new Hitbox(coords))) {
+            return
+        }
+        this.coords = coords
+        this.direction = direction
     }
 }
