@@ -15,4 +15,12 @@ class ImageProvider {
     BufferedImage getHeroImage() {
         sprite.getImageAtCoords(new Coords(0, 3))
     }
+
+    BufferedImage getRockTile() {
+        sprite.getImageAtCoords(new Coords(0, 14))
+    }
+
+    BufferedImage getGrassTile() {
+        sprite.getImageAtCoords(new Coords(0, 15))
+    }
 }

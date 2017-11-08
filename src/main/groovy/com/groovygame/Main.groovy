@@ -2,7 +2,7 @@ package com.groovygame
 
 import com.groovygame.game.Loop
 import com.groovygame.game.Service
-import com.groovygame.area.room.provider.DemoMapProvider
+import com.groovygame.area.room.provider.DemoWorldMapProvider
 import com.groovygame.area.room.provider.MapProvider
 import com.groovygame.mob.Mob
 import com.groovygame.mob.player.DemoPlayerProvider
@@ -50,6 +50,6 @@ class Main {
     }
 
     private static MapProvider getMapProvider() {
-        new DemoMapProvider()
+        new DemoWorldMapProvider()
     }
 }

@@ -14,7 +14,7 @@ import groovy.transform.Immutable
 import javax.imageio.ImageIO
 
 @Immutable
-class DemoMapProvider implements MapProvider {
+class DemoWorldMapProvider implements MapProvider {
     Map getMap() {
         def sprite = new Sprite(image: ImageIO.read(new File("sprites.png")))
         def imageProvider = new ImageProvider(sprite: sprite)
@@ -47,7 +47,7 @@ class DemoMapProvider implements MapProvider {
                         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 ],
                 tiles: [
-                    sprite.getImageAtCoords(new Coords(0, 14))
+                        imageProvider.getRockTile()
                 ]
             )
         new Map(
@@ -78,7 +78,7 @@ class DemoMapProvider implements MapProvider {
                     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 ],
                 tiles: [
-                    sprite.getImageAtCoords(new Coords(0, 15))
+                        imageProvider.getGrassTile()
                 ]
             ),
             blocking: blockingLayer,

@@ -1,13 +1,13 @@
 package com.groovygame.mob
 
-import com.groovygame.area.room.provider.DemoMapProvider
+import com.groovygame.area.room.provider.DemoWorldMapProvider
 import com.groovygame.util.Constants
 import spock.lang.Specification
 
 class MobSpec extends Specification {
     def "a patrolling mob follows its path from source to destination, then back again"() {
         setup:
-        def map = new DemoMapProvider().getMap()
+        def map = new DemoWorldMapProvider().getMap()
         def mob = map.getMobs().first()
         def path = mob.getPatrolPath()
 
